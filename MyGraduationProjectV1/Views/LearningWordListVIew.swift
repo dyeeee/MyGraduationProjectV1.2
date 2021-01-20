@@ -8,26 +8,48 @@
 import SwiftUI
 
 struct LearningWordListVIew: View {
-    @ObservedObject var wordListViewModel: WordListViewModel = WordListViewModel()
+    @ObservedObject var learningWordViewModel: LearningWordViewModel = LearningWordViewModel()
     
-    var testIDList = ["704","608","898"]
-    
-    func getWord(id:Int32) -> String {
-        let item = self.wordListViewModel.searchItemByID(id: id)
-        return item.wordContent ?? "noContent"
-    }
+
     
     var body: some View {
         NavigationView {
-            VStack {
-                ForEach(testIDList,id:\.self){
-                    id in
-                    Text(getWord(id: Int32(id) ?? 0))
+            List {
+                ForEach(self.learningWordViewModel.learningWordList,id:\.self){
+                    word in
+                    
+                    VStack {
+                        Text("WordID: \(word.wordID)")
+                        Text("WordContent: \(word.wordContent ?? "no content")")
+                        Text("WordDetail: \(word.sourceWord?.translation ?? "no translation")")
+                    }
+                    
                 }
                 
             }
             .navigationBarTitle("Learning")
             .navigationBarTitleDisplayMode(.inline)
+            .toolbar { // <2>
+                ToolbarItem(placement: .navigationBarLeading) { // <3>
+                    Button {
+                        self.learningWordViewModel.deleteAll()
+                    } label: {
+                        Text("DeleteAll")
+                    }
+                    
+                }
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Menu{
+                        Button(action: {
+                            self.learningWordViewModel.preloadLearningWordFromCSV()
+                        }) {
+                            Label("Preload", systemImage: "text.badge.plus")
+                        }
+                    } label: {
+                        Image(systemName: "ellipsis.circle")
+                    }
+                }
+            }
         }
     }
 }
