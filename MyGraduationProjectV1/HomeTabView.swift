@@ -13,7 +13,7 @@ struct HomeTabView: View {
     
     var body: some View {
         TabView(selection: $selectedTab){
-            Text("1")
+            HomeView()
                 .tabItem {
                     Image(systemName: "chart.bar.xaxis")
                     Text("Progress")
