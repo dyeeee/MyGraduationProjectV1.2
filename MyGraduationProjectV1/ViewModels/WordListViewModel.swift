@@ -170,19 +170,23 @@ class WordListViewModel: ObservableObject{
         
         //WordItem.fetchRequest() 就是 NSFetchRequest<WordItem>(entityName: "WordItem"）
         let pre =  NSPredicate(format: "wordID == %@", "\(id)")
-        
         fetchRequest.predicate = pre
         
         let viewContext = PersistenceController.shared.container.viewContext
 
-        var wordItem:WordItem = WordItem(context: viewContext)
+        
+        var testList:[WordItem] = []
         
         do {
-            wordItem = try viewContext.fetch(fetchRequest)[0]
+            testList = try viewContext.fetch(fetchRequest)
+            if testList.count > 0 {
+                return testList[0]  //id唯一
+            }
         } catch {
             NSLog("Error fetching tasks: \(error)")
         }
-        return wordItem
+        //print(testList)
+        return WordItem(context: viewContext)
     }
     
     func createTestItem() {
@@ -209,6 +213,9 @@ class WordListViewModel: ObservableObject{
         container.performBackgroundTask() { (context) in
             for i in 1 ..< (csvRows.count - 1) {  //有标题就从1开始
                 let word = WordItem(context: context)
+                var id = csvRows[i][0]
+                id.removeFirst()
+                word.wordID =  Int32(id) ?? 0// 去除最开始的引号
                 word.wordContent = csvRows[i][1]
                 word.phonetic_EN = csvRows[i][2]
                 word.phonetic_US = csvRows[i][3]

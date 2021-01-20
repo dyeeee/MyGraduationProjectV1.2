@@ -12,9 +12,11 @@
         <attribute name="timestamp" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
     </entity>
     <entity name="LearningWordItem" representedClassName="LearningWordItem" syncable="YES">
+        <attribute name="learnTimes" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="nextDateString" optional="YES" attributeType="String"/>
         <attribute name="wordContent" optional="YES" attributeType="String"/>
         <attribute name="wordID" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
-        <relationship name="sourceWord" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="WordItem"/>
+        <relationship name="sourceWord" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="WordItem" inverseName="learningState" inverseEntity="WordItem"/>
     </entity>
     <entity name="WordItem" representedClassName="WordItem" syncable="YES">
         <attribute name="bncLevel" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
@@ -31,14 +33,16 @@
         <attribute name="translation" optional="YES" attributeType="String"/>
         <attribute name="wordContent" optional="YES" attributeType="String"/>
         <attribute name="wordExchanges" optional="YES" attributeType="String"/>
-        <attribute name="wordID" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="wordID" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="wordID_UUID" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="wordNote" optional="YES" attributeType="String"/>
         <attribute name="wordTags" optional="YES" attributeType="String"/>
+        <relationship name="learningState" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="LearningWordItem" inverseName="sourceWord" inverseEntity="LearningWordItem"/>
     </entity>
     <elements>
         <element name="DayContentItem" positionX="0" positionY="126" width="128" height="119"/>
         <element name="Item" positionX="0" positionY="0" width="128" height="44"/>
-        <element name="WordItem" positionX="-267.6210327148438" positionY="0.43853759765625" width="128" height="284"/>
-        <element name="LearningWordItem" positionX="81.8223876953125" positionY="285.0213317871094" width="128" height="88"/>
+        <element name="WordItem" positionX="-267.6210327148438" positionY="0.43853759765625" width="128" height="328"/>
+        <element name="LearningWordItem" positionX="81.8223876953125" positionY="285.0213317871094" width="128" height="118"/>
     </elements>
 </model>

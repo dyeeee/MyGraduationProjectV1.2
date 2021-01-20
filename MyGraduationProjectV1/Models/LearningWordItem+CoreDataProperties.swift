@@ -18,6 +18,8 @@ extension LearningWordItem {
 
     @NSManaged public var wordID: Int32
     @NSManaged public var wordContent: String?
+    @NSManaged public var nextDateString: String?
+    @NSManaged public var learnTimes: Int16
     @NSManaged public var sourceWord: WordItem?
 
 }

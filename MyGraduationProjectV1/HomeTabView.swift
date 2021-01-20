@@ -20,7 +20,8 @@ struct HomeTabView: View {
                 }
                 .tag(TabSelection.page1)
             
-            Text("Learn").navigationTitle(Text("page2"))
+            Text("Learn")
+                .navigationTitle(Text("page2"))
                 .tabItem {
                     Image(systemName: "graduationcap.fill")
                     Text("Learn")
@@ -42,7 +43,8 @@ struct HomeTabView: View {
                 }
                 .tag(TabSelection.page4)
             
-            ShowAllWordsView(wordListViewModel: wordListViewModel)
+            //ShowAllWordsView(wordListViewModel: wordListViewModel)
+            LearningWordListVIew()
                 .tabItem {
                     Image(systemName: "gearshape.2.fill")
                     Text("Setting")

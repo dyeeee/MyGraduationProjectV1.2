@@ -30,9 +30,11 @@ extension WordItem {
     @NSManaged public var translation: String?
     @NSManaged public var wordContent: String?
     @NSManaged public var wordExchanges: String?
-    @NSManaged public var wordID: UUID?
+    @NSManaged public var wordID_UUID: UUID?
     @NSManaged public var wordNote: String?
     @NSManaged public var wordTags: String?
+    @NSManaged public var wordID: Int32
+    @NSManaged public var learningState: LearningWordItem?
 
 }
 
