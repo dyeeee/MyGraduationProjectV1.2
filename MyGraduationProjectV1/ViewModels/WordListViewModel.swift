@@ -165,6 +165,26 @@ class WordListViewModel: ObservableObject{
         }
     }
     
+    func searchItemByID(id:Int32) -> WordItem {
+        let fetchRequest: NSFetchRequest<WordItem> = WordItem.fetchRequest()
+        
+        //WordItem.fetchRequest() 就是 NSFetchRequest<WordItem>(entityName: "WordItem"）
+        let pre =  NSPredicate(format: "wordID == %@", "\(id)")
+        
+        fetchRequest.predicate = pre
+        
+        let viewContext = PersistenceController.shared.container.viewContext
+
+        var wordItem:WordItem = WordItem(context: viewContext)
+        
+        do {
+            wordItem = try viewContext.fetch(fetchRequest)[0]
+        } catch {
+            NSLog("Error fetching tasks: \(error)")
+        }
+        return wordItem
+    }
+    
     func createTestItem() {
         let container = PersistenceController.shared.container
         let viewContext = container.viewContext
