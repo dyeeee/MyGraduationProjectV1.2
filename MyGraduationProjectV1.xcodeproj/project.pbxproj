@@ -134,7 +134,6 @@
 		D044B950259ADA3C0098A1EC /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
-				D09DE1D4259CA592006DAB60 /* ProgressBarViews.swift */,
 				D04B707025AAF7D7004B644D /* WordListViewModel.swift */,
 				D0B0A26525B8100000225C28 /* DayContentViewModel.swift */,
 			);
@@ -180,6 +179,7 @@
 		D09DE1CF259C354C006DAB60 /* TestFiles */ = {
 			isa = PBXGroup;
 			children = (
+				D09DE1D4259CA592006DAB60 /* ProgressBarViews.swift */,
 				D09CCFA025AEC5BD00A0F5B7 /* ShowAllWordsView.swift */,
 				D04B707C25AB2C03004B644D /* StarLevelView.swift */,
 				D09DE1D0259C84D4006DAB60 /* ProgressTestView.swift */,
