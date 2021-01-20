@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="17709" systemVersion="20C69" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="DayContentItem" representedClassName="DayContentItem" syncable="YES">
+        <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="dateString" optional="YES" attributeType="String"/>
+        <attribute name="detail" optional="YES" attributeType="String"/>
+        <attribute name="done" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="monthString" optional="YES" attributeType="String"/>
+        <attribute name="stats" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+    </entity>
+    <entity name="Item" representedClassName="Item" syncable="YES" codeGenerationType="class">
+        <attribute name="timestamp" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+    </entity>
+    <entity name="WordItem" representedClassName="WordItem" syncable="YES">
+        <attribute name="bncLevel" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="collinsLevel" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="definition" optional="YES" attributeType="String"/>
+        <attribute name="exampleSentences" optional="YES" attributeType="String"/>
+        <attribute name="frqLevel" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="historyCount" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="latestSearchDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="oxfordLevel" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="phonetic_EN" optional="YES" attributeType="String"/>
+        <attribute name="phonetic_US" optional="YES" attributeType="String"/>
+        <attribute name="starLevel" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="translation" optional="YES" attributeType="String"/>
+        <attribute name="wordContent" optional="YES" attributeType="String"/>
+        <attribute name="wordExchanges" optional="YES" attributeType="String"/>
+        <attribute name="wordID" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="wordNote" optional="YES" attributeType="String"/>
+        <attribute name="wordTags" optional="YES" attributeType="String"/>
+    </entity>
+    <elements>
+        <element name="Item" positionX="0" positionY="0" width="128" height="44"/>
+        <element name="WordItem" positionX="0" positionY="0" width="128" height="284"/>
+        <element name="DayContentItem" positionX="0" positionY="126" width="128" height="119"/>
+    </elements>
+</model>
