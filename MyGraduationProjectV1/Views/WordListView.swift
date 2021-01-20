@@ -39,7 +39,9 @@ struct WordListView: View {
                 HStack {
                     TextField("Search", text: $searchText)
                         .onChange(of: searchText, perform: { value in
+                            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1.5) {
                             self.wordListViewModel.searchItems(begins: self.searchText)
+                            }
                         })
                     Button(action: {
                         self.wordListViewModel.searchItems(begins: self.searchText)
@@ -58,8 +60,6 @@ struct WordListView: View {
                             .onAppear(perform: {
                                 item.latestSearchDate = Date()
                                 item.historyCount = item.historyCount + 1
-                                self.wordListViewModel.saveToPersistentStore()
-                                self.wordListViewModel.getHistoryItems()
                             })
                     )
                     {
@@ -85,8 +85,6 @@ struct WordListView: View {
                                                     .onAppear(perform: {
                                                         item.latestSearchDate = Date()
                                                         item.historyCount = item.historyCount + 1
-                                                        self.wordListViewModel.saveToPersistentStore()
-                                                        self.wordListViewModel.getHistoryItems()
                                                     })
                     )
                     {

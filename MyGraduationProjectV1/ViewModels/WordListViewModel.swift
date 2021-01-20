@@ -76,7 +76,6 @@ class WordListViewModel: ObservableObject{
         fetchRequest.predicate = pre
         //fetchRequest.sortDescriptors = [sort]
         let viewContext = PersistenceController.shared.container.viewContext
-            //获取所有的Item
         
         var list:[WordItem] = []
         
@@ -303,7 +302,7 @@ class WordListViewModel: ObservableObject{
         let viewContext = PersistenceController.shared.container.viewContext
         do {
             try viewContext.save()
-            getAllItems()
+            //getAllItems()
             if listName == .item {
                 self.getAllItems()
             }else if listName == .notebook{

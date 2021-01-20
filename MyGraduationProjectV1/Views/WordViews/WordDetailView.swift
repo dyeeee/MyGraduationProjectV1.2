@@ -28,7 +28,7 @@ struct WordDetailView: View {
     
     var body: some View {
         ScrollViewReader { reader in
-            Form {
+            List {
                 VStack(alignment:.leading) {
                     HStack {
                         Menu{
@@ -248,6 +248,12 @@ struct WordDetailView: View {
                 }
                 
             }
+            .onAppear(perform: {
+                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.25) {
+                self.wordListViewModel.saveToPersistentStore()
+                self.wordListViewModel.getHistoryItems()
+                }
+            })
             .listStyle(InsetGroupedListStyle())
 //            .toolbar(content: {
 //                ToolbarItem(placement: .bottomBar) {

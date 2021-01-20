@@ -41,7 +41,7 @@ struct HistoryCalendarView: View {
                                 Text("Create Test")
                             })
                             Button(action: {
-                                self.dayContentViewModel.deleteAll()
+                                self.dayContentViewModel.deleteAllDayContentItem()
                             }, label: {
                                 Text("DeleteAll")
                             })

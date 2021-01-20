@@ -11,24 +11,24 @@ import SwiftUI
 
 
 class DayContentViewModel: ObservableObject{
-    @Published var itemList:[DayContentItem] = []
+    @Published var dayContentItemList:[DayContentItem] = []
     @Published var currentMonthList:[DayContentItem] = []
     @Published var dateStringList:[String] = []
     
         init() {
-            getAllItems()
+            getAllDayContentItems()
         }
     
-    func getAllItems() {
+    func getAllDayContentItems() {
         let fetchRequest: NSFetchRequest<DayContentItem> = DayContentItem.fetchRequest()
         //        let pre =  NSPredicate(format: "monthString == %@", "\(monthString)")
         //        fetchRequest.predicate = pre
         let viewContext = PersistenceController.shared.container.viewContext
         do {
             //获取所有的Item
-            print("加载所有Item")
-            itemList = try viewContext.fetch(fetchRequest)
-            getDateStringList()
+            print("加载所有日期Item")
+            self.dayContentItemList = try viewContext.fetch(fetchRequest)
+            self.getDateStringList()
         } catch {
             NSLog("Error fetching tasks: \(error)")
         }
@@ -37,7 +37,7 @@ class DayContentViewModel: ObservableObject{
     
     func getDateStringList(){
         print("获取日期字符串列表")
-        for item in itemList {
+        for item in self.dayContentItemList {
             self.dateStringList.append(item.dateString ?? "")
             //print(item.dateString ?? "")
         }
@@ -81,7 +81,7 @@ class DayContentViewModel: ObservableObject{
     
     
     func showContent(dateString:String) -> String {
-        for item in itemList {
+        for item in dayContentItemList {
             if item.dateString == dateString {
                 return item.detail ?? "null_1"
             }
@@ -89,7 +89,7 @@ class DayContentViewModel: ObservableObject{
         return "null_2"
     }
     
-    func createTestItem() {
+    func createTestDayContentItem() {
         let container = PersistenceController.shared.container
         let viewContext = container.viewContext
         
@@ -100,9 +100,9 @@ class DayContentViewModel: ObservableObject{
             item.done = true
             item.detail = "aaaaaa"
         }
-        saveToPersistentStore()
+        saveDayContentItemToPersistentStore()
         //保存后刷新
-        getAllItems()
+        getAllDayContentItems()
     }
     
     func createItem(dateString: String) {
@@ -112,13 +112,13 @@ class DayContentViewModel: ObservableObject{
         item.monthString = String(monthString)
         item.done = true
         item.detail = "aaaaaa"
-        saveToPersistentStore()
-        getAllItems()
+        saveDayContentItemToPersistentStore()
+        getAllDayContentItems()
         //        getAllItems(monthString: String(monthString))
     }
     
     //保存
-    func saveToPersistentStore() {
+    func saveDayContentItemToPersistentStore() {
         let viewContext = PersistenceController.shared.container.viewContext
         do {
             try viewContext.save()
@@ -128,7 +128,7 @@ class DayContentViewModel: ObservableObject{
         }
     }
     
-    func deleteAll()  {
+    func deleteAllDayContentItem()  {
         let viewContext = PersistenceController.shared.container.viewContext
         let allItems = NSFetchRequest<NSFetchRequestResult>(entityName: "DayContentItem")
         let delAllRequest = NSBatchDeleteRequest(fetchRequest: allItems)
@@ -136,7 +136,7 @@ class DayContentViewModel: ObservableObject{
             try viewContext.execute(delAllRequest)
             dateStringList = []
             print("删除全部数据")
-            saveToPersistentStore()
+            saveDayContentItemToPersistentStore()
         }
         catch { print(error) }
     }

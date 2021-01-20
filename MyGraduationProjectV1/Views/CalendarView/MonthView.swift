@@ -23,7 +23,7 @@ struct MonthView: View {
             HStack {
                 Spacer()
                 Button(action: {
-                    self.dayContentViewModel.getAllItems()
+                    self.dayContentViewModel.getAllDayContentItems()
                 }, label: {
                     Image(systemName: "arrow.triangle.2.circlepath")
                 }).buttonStyle(BorderlessButtonStyle())
