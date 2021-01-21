@@ -51,9 +51,9 @@ class LearningWordViewModel: ObservableObject{
                 fetchRequest.predicate = pre
                 
                 do {
-                    print(fetchRequest)
+                    //print(fetchRequest)
                     testList = try context.fetch(fetchRequest)
-                    print(testList)
+                    //print(testList)
                     if testList.count > 0 {
                         word.sourceWord = testList[0]  //id唯一
                     }
