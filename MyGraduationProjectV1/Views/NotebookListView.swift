@@ -11,7 +11,7 @@ struct NotebookListView: View {
     @ObservedObject var wordListViewModel: WordListViewModel
     @State private var searchText = ""
     
-    @State var noteTypeIndex = 1
+    @State var noteTypeIndex = 0
     
     @State var typeIndex = "5"
     

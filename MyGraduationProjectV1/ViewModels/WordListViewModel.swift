@@ -167,13 +167,10 @@ class WordListViewModel: ObservableObject{
     
     func searchItemByID(id:Int32) -> WordItem {
         let fetchRequest: NSFetchRequest<WordItem> = WordItem.fetchRequest()
-        
         //WordItem.fetchRequest() 就是 NSFetchRequest<WordItem>(entityName: "WordItem"）
         let pre =  NSPredicate(format: "wordID == %@", "\(id)")
         fetchRequest.predicate = pre
-        
         let viewContext = PersistenceController.shared.container.viewContext
-
         
         var testList:[WordItem] = []
         

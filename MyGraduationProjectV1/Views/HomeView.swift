@@ -9,7 +9,7 @@ import SwiftUI
 
 struct HomeView: View {
     @State var showHistoryCalendar = false
-    @ObservedObject var dayContentViewModel:DayContentViewModel = DayContentViewModel()
+    @ObservedObject var dayContentViewModel:DayContentViewModel// = DayContentViewModel()
     
     @State var isLoading:Bool = false
     
@@ -79,7 +79,7 @@ struct HomeView: View {
 
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
-        HomeView()
+        HomeView(dayContentViewModel: DayContentViewModel())
     }
 }
 

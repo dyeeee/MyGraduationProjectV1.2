@@ -103,7 +103,7 @@ struct WordListView: View {
 
         }
         .listStyle(InsetGroupedListStyle())
-        .environment(\.horizontalSizeClass, .regular)
+//        .environment(\.horizontalSizeClass, .regular)
         .navigationBarTitleDisplayMode(.inline)
     }
     

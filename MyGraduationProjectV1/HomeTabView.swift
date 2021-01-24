@@ -10,17 +10,18 @@ import SwiftUI
 struct HomeTabView: View {
     @State var selectedTab: TabSelection = .page4
     @ObservedObject var wordListViewModel = WordListViewModel()
+    @ObservedObject var dayContentViewModel:DayContentViewModel = DayContentViewModel()
     
     var body: some View {
         TabView(selection: $selectedTab){
-            HomeView()
+            HomeView(dayContentViewModel: self.dayContentViewModel)
                 .tabItem {
                     Image(systemName: "chart.bar.xaxis")
                     Text("Progress")
                 }
                 .tag(TabSelection.page1)
             
-            Text("Learn")
+            LearnStartView()
                 .navigationTitle(Text("page2"))
                 .tabItem {
                     Image(systemName: "graduationcap.fill")

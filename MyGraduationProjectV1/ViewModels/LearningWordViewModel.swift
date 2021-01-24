@@ -10,20 +10,81 @@ import Foundation
 import CoreData
 
 class LearningWordViewModel: ObservableObject{
+    @Published var allWordsToLearnList:[LearningWordItem] = []
     @Published var learningWordList:[LearningWordItem] = []
+    @Published var knownWordList:[LearningWordItem] = []
+    @Published var unlearnedWordList:[LearningWordItem] = []
+    
+    init() {
+        getAllItems()
+        getKnownWordItems()
+        getLearningWordItems()
+        getUnlearnedWordItems()
+    }
     
     func getAllItems() {
         let fetchRequest: NSFetchRequest<LearningWordItem> = LearningWordItem.fetchRequest()
         let sort = NSSortDescriptor(key: "wordContent", ascending: true,selector: #selector(NSString.caseInsensitiveCompare(_:)))
         
-        fetchRequest.fetchLimit = 50
+        //fetchRequest.fetchLimit = 50
         //fetchRequest.predicate = pre
         fetchRequest.sortDescriptors = [sort]
         
         let viewContext = PersistenceController.shared.container.viewContext
         do {
             //获取所有的Item
+            allWordsToLearnList = try viewContext.fetch(fetchRequest)
+        } catch {
+            NSLog("Error fetching tasks: \(error)")
+        }
+    }
+    
+    func getLearningWordItems() {
+        let fetchRequest: NSFetchRequest<LearningWordItem> = LearningWordItem.fetchRequest()
+        let sort = NSSortDescriptor(key: "wordContent", ascending: true,selector: #selector(NSString.caseInsensitiveCompare(_:)))
+        let pre =  NSPredicate(format: "status == %@", "learning")
+        
+        //fetchRequest.fetchLimit = 50
+        fetchRequest.predicate = pre
+        fetchRequest.sortDescriptors = [sort]
+        
+        let viewContext = PersistenceController.shared.container.viewContext
+        do {
             learningWordList = try viewContext.fetch(fetchRequest)
+        } catch {
+            NSLog("Error fetching tasks: \(error)")
+        }
+    }
+    
+    func getKnownWordItems() {
+        let fetchRequest: NSFetchRequest<LearningWordItem> = LearningWordItem.fetchRequest()
+        let sort = NSSortDescriptor(key: "wordContent", ascending: true,selector: #selector(NSString.caseInsensitiveCompare(_:)))
+        let pre =  NSPredicate(format: "status == %@", "known")
+        
+        //fetchRequest.fetchLimit = 50
+        fetchRequest.predicate = pre
+        fetchRequest.sortDescriptors = [sort]
+        
+        let viewContext = PersistenceController.shared.container.viewContext
+        do {
+            knownWordList = try viewContext.fetch(fetchRequest)
+        } catch {
+            NSLog("Error fetching tasks: \(error)")
+        }
+    }
+    
+    func getUnlearnedWordItems() {
+        let fetchRequest: NSFetchRequest<LearningWordItem> = LearningWordItem.fetchRequest()
+        let sort = NSSortDescriptor(key: "wordContent", ascending: true,selector: #selector(NSString.caseInsensitiveCompare(_:)))
+        let pre =  NSPredicate(format: "status == %@", "unlearned")
+        
+        //fetchRequest.fetchLimit = 50
+        fetchRequest.predicate = pre
+        fetchRequest.sortDescriptors = [sort]
+        
+        let viewContext = PersistenceController.shared.container.viewContext
+        do {
+            unlearnedWordList = try viewContext.fetch(fetchRequest)
         } catch {
             NSLog("Error fetching tasks: \(error)")
         }
@@ -40,13 +101,29 @@ class LearningWordViewModel: ObservableObject{
         var testList:[WordItem] = []
         
         container.performBackgroundTask() { (context) in
-            for i in 1 ..< 400 {  //有标题就从1开始，测试400个
+            for i in 1 ..< 401 {  //有标题就从1开始，测试400个
                 let word = LearningWordItem(context: context)
                 var id = csvRows[i][0]
                 id.removeFirst()
                 word.wordID =  Int32(id) ?? 0// 去除最开始的引号
-                word.wordContent = csvRows[i][1]
+                var content = csvRows[i][1]
+                content.removeLast()
+                word.wordContent = content
                 
+                //print("doing \(word.wordID)")
+                if i < 100{
+                    word.status = "unlearned"
+                }else if i < 200{
+                    word.status = "learning"
+                }else if i < 300{
+                    word.status = "known"
+                }else{
+                    word.status = "unlearned"
+                }
+                word.reviewTimes = 0
+                word.nextReviewDay = 0
+                
+                //关联单词对象
                 let pre =  NSPredicate(format: "wordID == %@", "\(id)")
                 fetchRequest.predicate = pre
                 
@@ -56,6 +133,7 @@ class LearningWordViewModel: ObservableObject{
                     //print(testList)
                     if testList.count > 0 {
                         word.sourceWord = testList[0]  //id唯一
+                        //print("get\(i)")
                     }
                 } catch {
                     NSLog("Error fetching tasks: \(error)")
@@ -70,6 +148,9 @@ class LearningWordViewModel: ObservableObject{
                 //在主队列异步加载一次
                 DispatchQueue.main.async {
                     self.getAllItems()
+                    self.getKnownWordItems()
+                    self.getLearningWordItems()
+                    self.getUnlearnedWordItems()
                     print("重新获取数据完成")
                 }
             }
@@ -87,7 +168,7 @@ class LearningWordViewModel: ObservableObject{
             try viewContext.execute(delAllRequest)
             try viewContext.save()
             print("删除全部数据并保存")
-//            saveToPersistentStore()
+            saveToPersistentStore()
          }
          catch { print(error) }
     }

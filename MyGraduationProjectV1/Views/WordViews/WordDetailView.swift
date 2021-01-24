@@ -99,7 +99,7 @@ struct WordDetailView: View {
                     //                        .font(.subheadline)
                     //                        .foregroundColor(.black)
                     
-                    WordPhoneticView(phonetic_EN: wordItem.phonetic_EN!, phonetic_US: wordItem.phonetic_US!)
+                    WordPhoneticView(phonetic_EN: wordItem.phonetic_EN ?? "no phonetic_EN", phonetic_US: wordItem.phonetic_US ?? "no phonetic_US")
                     
                     WordTagsView(wordTags: wordItem.wordTags ?? "",bncLevel:Int(wordItem.bncLevel),frqLevel:Int(wordItem.frqLevel),oxfordLevel:Int(wordItem.oxfordLevel),collinsLevel:Int(wordItem.collinsLevel))
                     //                    }
