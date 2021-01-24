@@ -44,8 +44,8 @@ struct HomeTabView: View {
                 }
                 .tag(TabSelection.page4)
             
-            //ShowAllWordsView(wordListViewModel: wordListViewModel)
-            LearningWordListVIew()
+            ShowAllWordsView(wordListViewModel: wordListViewModel)
+            //LearningWordListVIew()
                 .tabItem {
                     Image(systemName: "gearshape.2.fill")
                     Text("Setting")

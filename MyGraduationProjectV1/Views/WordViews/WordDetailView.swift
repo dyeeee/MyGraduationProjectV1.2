@@ -115,7 +115,7 @@ struct WordDetailView: View {
                 Section(header: ListHeader(img: "lightbulb.fill", text: "释义", showContent: $showTrans))
                 {
                     if(showTrans) {
-                        WordTranslationView(wordTranslastion: wordItem.translation!, wordDefinition: wordItem.definition!)
+                        WordTranslationView(wordTranslastion: wordItem.translation ?? "no Trans", wordDefinition: wordItem.definition ?? "no Def")
                         
                         
                         //                    VStack(alignment: .leading, spacing: 10) {

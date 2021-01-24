@@ -257,6 +257,9 @@ class WordListViewModel: ObservableObject{
         container.performBackgroundTask() { (context) in
             for i in 1 ..< (csvRows.count - 1) {  //有标题就从1开始
                 let word = WordItem(context: context)
+                var id = csvRows[i][0]
+                id.removeFirst()
+                word.wordID =  Int32(id) ?? 0// 去除最开始的引号
                 word.wordContent = csvRows[i][1]
                 word.phonetic_EN = csvRows[i][2]
                 word.phonetic_US = csvRows[i][3]

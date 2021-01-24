@@ -128,12 +128,12 @@ class LearningWordViewModel: ObservableObject{
                 fetchRequest.predicate = pre
                 
                 do {
-                    //print(fetchRequest)
+                    //print(id)
                     testList = try context.fetch(fetchRequest)
                     //print(testList)
                     if testList.count > 0 {
                         word.sourceWord = testList[0]  //id唯一
-                        //print("get\(i)")
+                        print("get\(i)")
                     }
                 } catch {
                     NSLog("Error fetching tasks: \(error)")

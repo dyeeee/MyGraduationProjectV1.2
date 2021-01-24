@@ -44,6 +44,11 @@ struct WordSearchView: View {
                         }) {
                             Label("Preload", systemImage: "text.badge.plus")
                         }
+                        Button(action: {
+                            self.wordListViewModel.preloadFromBigCSV()
+                        }) {
+                            Label("Preload Big", systemImage: "text.badge.plus")
+                        }
                     } label: {
                         Image(systemName: "ellipsis.circle")
                     }
