@@ -8,23 +8,39 @@
 import SwiftUI
 
 struct LearningView: View {
+    @ObservedObject var wordListViewModel: WordListViewModel = WordListViewModel()
+    @ObservedObject var learnWordViewModel: LearnWordViewModel = LearnWordViewModel()
+    @Environment(\.presentationMode) var presentationMode
+    
     var wordExample = ["allow","alleviate","among"]
     
     var body: some View {
         VStack {
             VStack{
                 HStack{
+                    Button(action: {
+                        self.presentationMode.wrappedValue.dismiss()
+                    }, label: {
+                        Text("Back")
+                    })
                     Rectangle()
-                        .frame(width: UIScreen.main.bounds.width - 30, height: 20, alignment: .center)
+                        .frame(width: 200, height: 20, alignment: .center)
                         .foregroundColor(Color(.systemTeal))
+                    
+                    Button(action: {
+                        self.learnWordViewModel.getTodayNewWordItems(num: 30)
+                    }, label: {
+                        Text("get")
+                    })
                 }
             }
             
             ZStack {
-                ForEach(self.wordExample.reversed(), id: \.self) {
-                    word in
-                    //ReviewCardView(wordContent:word)
-                    Text(word)
+                ForEach(self.learnWordViewModel.todayNewWordList, id: \.self) {
+                    wordItem in
+                    ReviewCardView(learningWordItem: wordItem, learnWordViewModel: self.learnWordViewModel, wordListViewModel: self.wordListViewModel)
+                        
+                    
                 }
             }
             .frame(width: UIScreen.main.bounds.width - 30, alignment: .center)
@@ -33,6 +49,8 @@ struct LearningView: View {
                     .stroke(Color.black.opacity(0.2), lineWidth: 1.0)
         )
         }
+        .navigationBarHidden(true)
+        .hiddenTabBar()
     }
 }
 

@@ -35,7 +35,8 @@ extension WordItem {
     @NSManaged public var wordTags: String?
     @NSManaged public var wordID: Int32
     @NSManaged public var learningState: LearningWordItem?
-
+    
+    
 }
 
 extension WordItem : Identifiable {

@@ -10,6 +10,7 @@ import SwiftUI
 struct HomeTabView: View {
     @State var selectedTab: TabSelection = .page4
     @ObservedObject var wordListViewModel = WordListViewModel()
+    @ObservedObject var learnWordViewModel: LearnWordViewModel = LearnWordViewModel()
     @ObservedObject var dayContentViewModel:DayContentViewModel = DayContentViewModel()
     
     var body: some View {

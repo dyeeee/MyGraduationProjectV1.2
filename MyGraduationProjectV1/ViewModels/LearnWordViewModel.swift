@@ -15,14 +15,49 @@ class LearnWordViewModel: ObservableObject{
     @Published var knownWordList:[LearningWordItem] = []
     @Published var unlearnedWordList:[LearningWordItem] = []
     
-    @Published var newWordList:[LearningWordItem] = []
-    @Published var todayWordList:[LearningWordItem] = []
+    @Published var todayNewWordList:[LearningWordItem] = []
+    @Published var todayReviewWordList:[LearningWordItem] = []
     
     init() {
         getAllItems()
         getKnownWordItems()
         getLearningWordItems()
         getUnlearnedWordItems()
+    }
+    
+    func getTodayNewWordItems(num:Int = 30) {
+        let fetchRequest: NSFetchRequest<LearningWordItem> = LearningWordItem.fetchRequest()
+        //let sort = NSSortDescriptor(key: "wordContent", ascending: true,selector: #selector(NSString.caseInsensitiveCompare(_:)))
+        let pre =  NSPredicate(format: "status == %@", "unlearned")
+        fetchRequest.fetchLimit = num
+        fetchRequest.predicate = pre
+        //fetchRequest.sortDescriptors = [sort]
+        
+        let viewContext = PersistenceController.shared.container.viewContext
+        do {
+            //获取所有的Item
+            todayNewWordList = try viewContext.fetch(fetchRequest)
+            //补充把下次复习时间添加为今天
+            //先执行这个函数获取要新学的，再执行要复习的
+        } catch {
+            NSLog("Error fetching tasks: \(error)")
+        }
+    }
+    
+    func getTodayReviewWordItems() {
+        let fetchRequest: NSFetchRequest<LearningWordItem> = LearningWordItem.fetchRequest()
+        //let sort = NSSortDescriptor(key: "wordContent", ascending: true,selector: #selector(NSString.caseInsensitiveCompare(_:)))
+        let pre =  NSPredicate(format: "status == %@", "unlearned") // 下次复习时间为今天的单词
+        fetchRequest.predicate = pre
+        //fetchRequest.sortDescriptors = [sort]
+        
+        let viewContext = PersistenceController.shared.container.viewContext
+        do {
+            //获取所有的Item
+            todayReviewWordList = try viewContext.fetch(fetchRequest)
+        } catch {
+            NSLog("Error fetching tasks: \(error)")
+        }
     }
     
     func getAllItems() {

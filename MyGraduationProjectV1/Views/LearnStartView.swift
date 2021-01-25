@@ -9,12 +9,12 @@ import SwiftUI
 
 struct LearnStartView: View {
     @ObservedObject var wordListViewModel: WordListViewModel = WordListViewModel()
-    
+    @ObservedObject var learnWordViewModel: LearnWordViewModel = LearnWordViewModel()
     
     
     var body: some View {
         NavigationView {
-            VStack {
+            VStack(spacing:20) {
                 NavigationLink(
                     destination: LearningWordListVIew(),
                     label: {
@@ -22,7 +22,7 @@ struct LearnStartView: View {
                     })
                 
                 NavigationLink(
-                    destination: LearningWordListVIew(),
+                    destination: LearningView(),
                     label: {
                         Text("开始学习")
                     })
@@ -31,6 +31,7 @@ struct LearnStartView: View {
             }
             .navigationBarTitle("Learning")
             .navigationBarTitleDisplayMode(.inline)
+            .showTabBar()
         }
     }
 }

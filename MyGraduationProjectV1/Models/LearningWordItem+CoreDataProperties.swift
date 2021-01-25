@@ -24,6 +24,7 @@ extension LearningWordItem {
     @NSManaged public var nextReviewDay: Int16 //下一次复习是在学习周期的第几天
     @NSManaged public var listID: Int16
     @NSManaged public var sourceWord: WordItem?
+    
 
 }
 
