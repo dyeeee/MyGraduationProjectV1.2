@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct LearningWordListVIew: View {
-    @ObservedObject var learningWordViewModel: LearningWordViewModel = LearningWordViewModel()
+    @ObservedObject var learnWordViewModel: LearnWordViewModel = LearnWordViewModel()
     @ObservedObject var wordListViewModel: WordListViewModel = WordListViewModel()
     
     @State var noteTypeIndex = 3
@@ -61,7 +61,7 @@ struct LearningWordListVIew: View {
                             
                             
                             List {
-                                ForEach(self.learningWordViewModel.learningWordList,id:\.self){
+                                ForEach(self.learnWordViewModel.learningWordList,id:\.self){
                                     word in
                                     NavigationLink(
                                         destination: WordDetailView(wordItem:self.wordListViewModel.searchItemByID(id: word.wordID),wordListViewModel:wordListViewModel,wordNote: word.sourceWord?.wordNote ?? "nullTag")
@@ -111,7 +111,7 @@ struct LearningWordListVIew: View {
                             
                             
                             List {
-                                ForEach(self.learningWordViewModel.unlearnedWordList,id:\.self){
+                                ForEach(self.learnWordViewModel.unlearnedWordList,id:\.self){
                                     word in
                                     NavigationLink(
                                         destination: WordDetailView(wordItem:self.wordListViewModel.searchItemByID(id: word.wordID),wordListViewModel:wordListViewModel,wordNote: word.sourceWord?.wordNote ?? "nullTag")
@@ -161,7 +161,7 @@ struct LearningWordListVIew: View {
                             
                             
                             List {
-                                ForEach(self.learningWordViewModel.knownWordList,id:\.self){
+                                ForEach(self.learnWordViewModel.knownWordList,id:\.self){
                                     word in
                                     NavigationLink(
                                         destination: WordDetailView(wordItem:self.wordListViewModel.searchItemByID(id: word.wordID),wordListViewModel:wordListViewModel,wordNote: word.sourceWord?.wordNote ?? "nullTag")
@@ -211,7 +211,7 @@ struct LearningWordListVIew: View {
                             
                             
                             List {
-                                ForEach(self.learningWordViewModel.allWordsToLearnList,id:\.self){
+                                ForEach(self.learnWordViewModel.allWordsToLearnList,id:\.self){
                                     word in
                                     NavigationLink(
                                         destination: WordDetailView(wordItem:self.wordListViewModel.searchItemByID(id: word.wordID),wordListViewModel:wordListViewModel,wordNote: word.sourceWord?.wordNote ?? "nullTag")
@@ -246,12 +246,12 @@ struct LearningWordListVIew: View {
                     ToolbarItem(placement: .navigationBarTrailing) { // <3>
                         Menu{
                             Button(action: {
-                                self.learningWordViewModel.deleteAll()
+                                self.learnWordViewModel.deleteAll()
                             }) {
                                 Text("DeleteAll")
                             }
                             Button(action: {
-                                self.learningWordViewModel.preloadLearningWordFromCSV()
+                                self.learnWordViewModel.preloadLearningWordFromCSV()
                             }) {
                                 Label("Preload", systemImage: "text.badge.plus")
                             }

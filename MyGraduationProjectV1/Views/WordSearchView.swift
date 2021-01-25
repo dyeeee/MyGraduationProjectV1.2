@@ -23,6 +23,7 @@ struct WordSearchView: View {
                 }.listStyle(InsetGroupedListStyle())
             .navigationTitle("Word List")
             .navigationBarTitleDisplayMode(.inline)
+            .showTabBar()
             .toolbar { // <2>
                 ToolbarItem(placement: .navigationBarLeading) { // <3>
                     Button {

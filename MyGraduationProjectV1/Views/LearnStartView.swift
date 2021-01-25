@@ -18,7 +18,13 @@ struct LearnStartView: View {
                 NavigationLink(
                     destination: LearningWordListVIew(),
                     label: {
-                        Text("Navigate")
+                        Text("学习的单词列表")
+                    })
+                
+                NavigationLink(
+                    destination: LearningWordListVIew(),
+                    label: {
+                        Text("开始学习")
                     })
                 Text("Hello, World!")
                 

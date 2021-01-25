@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D01585FD25BE799E00FD71BC /* HideTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = D01585FC25BE799E00FD71BC /* HideTab.swift */; };
+		D015860125BE995600FD71BC /* LearningView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D015860025BE995600FD71BC /* LearningView.swift */; };
+		D015860525BE99A400FD71BC /* ReviewCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D015860425BE99A400FD71BC /* ReviewCardView.swift */; };
 		D04B706125AAF662004B644D /* CSVTools.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04B706025AAF662004B644D /* CSVTools.swift */; };
 		D04B706425AAF668004B644D /* RegexTools.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04B706325AAF668004B644D /* RegexTools.swift */; };
 		D04B706725AAF66D004B644D /* SelectableText.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04B706625AAF66D004B644D /* SelectableText.swift */; };
@@ -60,7 +63,7 @@
 		D0B0A26225B80FEC00225C28 /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0B0A25F25B80FEC00225C28 /* Helper.swift */; };
 		D0B0A26325B80FEC00225C28 /* ScrollViewTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0B0A26025B80FEC00225C28 /* ScrollViewTest.swift */; };
 		D0B0A26625B8100000225C28 /* DayContentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0B0A26525B8100000225C28 /* DayContentViewModel.swift */; };
-		D0B0A28B25B8616100225C28 /* LearningWordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0B0A28A25B8616100225C28 /* LearningWordViewModel.swift */; };
+		D0B0A28B25B8616100225C28 /* LearnWordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0B0A28A25B8616100225C28 /* LearnWordViewModel.swift */; };
 		D0B0A29325B864F000225C28 /* LearnStartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0B0A29225B864F000225C28 /* LearnStartView.swift */; };
 		D0B0A29725B86A3000225C28 /* IELTS_Words_wordonly.csv in Resources */ = {isa = PBXBuildFile; fileRef = D0B0A29625B86A3000225C28 /* IELTS_Words_wordonly.csv */; };
 		D0B0A29A25B86A8D00225C28 /* LearningWordListVIew.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0B0A29925B86A8D00225C28 /* LearningWordListVIew.swift */; };
@@ -70,6 +73,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		D01585FC25BE799E00FD71BC /* HideTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HideTab.swift; sourceTree = "<group>"; };
+		D015860025BE995600FD71BC /* LearningView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LearningView.swift; sourceTree = "<group>"; };
+		D015860425BE99A400FD71BC /* ReviewCardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReviewCardView.swift; sourceTree = "<group>"; };
 		D04B706025AAF662004B644D /* CSVTools.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CSVTools.swift; sourceTree = "<group>"; };
 		D04B706325AAF668004B644D /* RegexTools.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegexTools.swift; sourceTree = "<group>"; };
 		D04B706625AAF66D004B644D /* SelectableText.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectableText.swift; sourceTree = "<group>"; };
@@ -125,7 +131,7 @@
 		D0B0A25F25B80FEC00225C28 /* Helper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
 		D0B0A26025B80FEC00225C28 /* ScrollViewTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScrollViewTest.swift; sourceTree = "<group>"; };
 		D0B0A26525B8100000225C28 /* DayContentViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DayContentViewModel.swift; sourceTree = "<group>"; };
-		D0B0A28A25B8616100225C28 /* LearningWordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LearningWordViewModel.swift; sourceTree = "<group>"; };
+		D0B0A28A25B8616100225C28 /* LearnWordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LearnWordViewModel.swift; sourceTree = "<group>"; };
 		D0B0A29225B864F000225C28 /* LearnStartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LearnStartView.swift; sourceTree = "<group>"; };
 		D0B0A29625B86A3000225C28 /* IELTS_Words_wordonly.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = IELTS_Words_wordonly.csv; sourceTree = "<group>"; };
 		D0B0A29925B86A8D00225C28 /* LearningWordListVIew.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LearningWordListVIew.swift; sourceTree = "<group>"; };
@@ -145,12 +151,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D01585FF25BE98D400FD71BC /* LearnView */ = {
+			isa = PBXGroup;
+			children = (
+				D015860025BE995600FD71BC /* LearningView.swift */,
+				D015860425BE99A400FD71BC /* ReviewCardView.swift */,
+				D0B0A29925B86A8D00225C28 /* LearningWordListVIew.swift */,
+			);
+			path = LearnView;
+			sourceTree = "<group>";
+		};
 		D044B950259ADA3C0098A1EC /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
 				D04B707025AAF7D7004B644D /* WordListViewModel.swift */,
 				D0B0A26525B8100000225C28 /* DayContentViewModel.swift */,
-				D0B0A28A25B8616100225C28 /* LearningWordViewModel.swift */,
+				D0B0A28A25B8616100225C28 /* LearnWordViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -164,6 +180,7 @@
 				D090AEAA25AD8B8D00663FA1 /* HideKeyboard.swift */,
 				D0B0A25D25B80FEC00225C28 /* MonthCalUtility */,
 				D09B727925BAFFBE00CD85BF /* DealString.swift */,
+				D01585FC25BE799E00FD71BC /* HideTab.swift */,
 			);
 			path = Tools;
 			sourceTree = "<group>";
@@ -231,7 +248,6 @@
 				D0AD9EA02598B2FA00148404 /* MyGraduationProjectV1App.swift */,
 				D0AD9EB62598B35800148404 /* HomeTabView.swift */,
 				D0AD9EBA2598B3C200148404 /* Models */,
-				D0B0A24525B80FC700225C28 /* MonthCalModel */,
 				D044B950259ADA3C0098A1EC /* ViewModels */,
 				D0AD9EB92598B3B700148404 /* Views */,
 				D04B705F25AAF656004B644D /* Tools */,
@@ -262,9 +278,9 @@
 			children = (
 				D0B0A24D25B80FDA00225C28 /* HomeView.swift */,
 				D0B0A29225B864F000225C28 /* LearnStartView.swift */,
-				D0B0A29925B86A8D00225C28 /* LearningWordListVIew.swift */,
 				D09CCF9925AE9A2C00A0F5B7 /* WordSearchView.swift */,
 				D09CCF9425AE982900A0F5B7 /* NotebookListView.swift */,
+				D01585FF25BE98D400FD71BC /* LearnView */,
 				D04B706C25AAF771004B644D /* WordViews */,
 				D0B0A25025B80FE400225C28 /* CalendarView */,
 				D09DE1C8259C28AF006DAB60 /* MyProgressView.swift */,
@@ -281,6 +297,7 @@
 				D0AD708E25BA8370008456C0 /* LearningWordItem+CoreDataProperties.swift */,
 				D0B0A23D25B80F4400225C28 /* DayContentItem+CoreDataClass.swift */,
 				D0B0A23E25B80F4400225C28 /* DayContentItem+CoreDataProperties.swift */,
+				D0B0A24525B80FC700225C28 /* MonthCalModel */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -406,6 +423,8 @@
 				D04B707125AAF7D7004B644D /* WordListViewModel.swift in Sources */,
 				D09DE1D5259CA592006DAB60 /* ProgressBarViews.swift in Sources */,
 				D0B0A24225B80F4400225C28 /* DayContentItem+CoreDataProperties.swift in Sources */,
+				D01585FD25BE799E00FD71BC /* HideTab.swift in Sources */,
+				D015860525BE99A400FD71BC /* ReviewCardView.swift in Sources */,
 				D09B727A25BAFFBE00CD85BF /* DealString.swift in Sources */,
 				D090AEAB25AD8B8D00663FA1 /* HideKeyboard.swift in Sources */,
 				D0B0A24925B80FC700225C28 /* Day.swift in Sources */,
@@ -414,6 +433,7 @@
 				D0B0A26225B80FEC00225C28 /* Helper.swift in Sources */,
 				D0B0A29325B864F000225C28 /* LearnStartView.swift in Sources */,
 				D04B707D25AB2C03004B644D /* StarLevelView.swift in Sources */,
+				D015860125BE995600FD71BC /* LearningView.swift in Sources */,
 				D0AD9EAA2598B2FB00148404 /* Persistence.swift in Sources */,
 				D0B0A24125B80F4400225C28 /* DayContentItem+CoreDataClass.swift in Sources */,
 				D0AD709025BA8370008456C0 /* LearningWordItem+CoreDataProperties.swift in Sources */,
@@ -428,7 +448,7 @@
 				D0B0A25A25B80FE400225C28 /* WeekdaysView.swift in Sources */,
 				D09CCFBE25B00AA500A0F5B7 /* GestureTest.swift in Sources */,
 				D09DE1D1259C84D4006DAB60 /* ProgressTestView.swift in Sources */,
-				D0B0A28B25B8616100225C28 /* LearningWordViewModel.swift in Sources */,
+				D0B0A28B25B8616100225C28 /* LearnWordViewModel.swift in Sources */,
 				D09CCF9525AE982900A0F5B7 /* NotebookListView.swift in Sources */,
 				D04B706425AAF668004B644D /* RegexTools.swift in Sources */,
 				D09DE1C9259C28AF006DAB60 /* MyProgressView.swift in Sources */,

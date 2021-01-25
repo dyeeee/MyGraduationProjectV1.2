@@ -16,6 +16,7 @@ import MobileCoreServices
 struct WordDetailView: View {
     @ObservedObject var wordItem:WordItem
     @ObservedObject var wordListViewModel: WordListViewModel
+    
     @State var wordNote:String = ""
     
     @State var showNotePlaceholder = true
@@ -310,6 +311,7 @@ struct WordDetailView: View {
 //                }
 //            })
             .navigationTitle(wordItem.wordContent ?? "null")
+            .hiddenTabBar()
         }
        
     }

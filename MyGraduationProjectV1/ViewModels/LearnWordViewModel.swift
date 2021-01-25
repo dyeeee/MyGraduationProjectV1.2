@@ -9,11 +9,14 @@ import SwiftUI
 import Foundation
 import CoreData
 
-class LearningWordViewModel: ObservableObject{
+class LearnWordViewModel: ObservableObject{
     @Published var allWordsToLearnList:[LearningWordItem] = []
     @Published var learningWordList:[LearningWordItem] = []
     @Published var knownWordList:[LearningWordItem] = []
     @Published var unlearnedWordList:[LearningWordItem] = []
+    
+    @Published var newWordList:[LearningWordItem] = []
+    @Published var todayWordList:[LearningWordItem] = []
     
     init() {
         getAllItems()
