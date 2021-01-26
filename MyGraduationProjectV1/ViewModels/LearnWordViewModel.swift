@@ -25,18 +25,21 @@ class LearnWordViewModel: ObservableObject{
         getUnlearnedWordItems()
     }
     
-    func getTodayNewWordItems(num:Int = 30) {
+    func getTodayNewWordItems(num:Int = 5) {
         let fetchRequest: NSFetchRequest<LearningWordItem> = LearningWordItem.fetchRequest()
-        //let sort = NSSortDescriptor(key: "wordContent", ascending: true,selector: #selector(NSString.caseInsensitiveCompare(_:)))
+        let sort = NSSortDescriptor(key: "wordContent", ascending: true,selector: #selector(NSString.caseInsensitiveCompare(_:)))
         let pre =  NSPredicate(format: "status == %@", "unlearned")
         fetchRequest.fetchLimit = num
         fetchRequest.predicate = pre
-        //fetchRequest.sortDescriptors = [sort]
+        fetchRequest.sortDescriptors = [sort]
         
         let viewContext = PersistenceController.shared.container.viewContext
         do {
             //获取所有的Item
-            todayNewWordList = try viewContext.fetch(fetchRequest)
+            todayNewWordList = try viewContext.fetch(fetchRequest).reversed()
+            for item in todayNewWordList{
+                print(item.wordContent ?? "no content")
+            }
             //补充把下次复习时间添加为今天
             //先执行这个函数获取要新学的，再执行要复习的
         } catch {
@@ -46,15 +49,20 @@ class LearnWordViewModel: ObservableObject{
     
     func getTodayReviewWordItems() {
         let fetchRequest: NSFetchRequest<LearningWordItem> = LearningWordItem.fetchRequest()
-        //let sort = NSSortDescriptor(key: "wordContent", ascending: true,selector: #selector(NSString.caseInsensitiveCompare(_:)))
-        let pre =  NSPredicate(format: "status == %@", "unlearned") // 下次复习时间为今天的单词
+        let sort = NSSortDescriptor(key: "wordContent", ascending: true,selector: #selector(NSString.caseInsensitiveCompare(_:)))
+        let pre =  NSPredicate(format: "status == %@", "unlearned") // pre会改为下次复习时间为今天的单词
+        fetchRequest.fetchLimit = 5
         fetchRequest.predicate = pre
-        //fetchRequest.sortDescriptors = [sort]
+        fetchRequest.sortDescriptors = [sort]
         
         let viewContext = PersistenceController.shared.container.viewContext
         do {
             //获取所有的Item
             todayReviewWordList = try viewContext.fetch(fetchRequest)
+            for item in todayReviewWordList {
+                item.todayReviewCount = 0
+            }
+            showItems(list: todayReviewWordList)
         } catch {
             NSLog("Error fetching tasks: \(error)")
         }
@@ -222,5 +230,26 @@ class LearnWordViewModel: ObservableObject{
             NSLog("Error saving managed object context: \(error)")
         }
     }
+    
+    func nextCard(item:LearningWordItem) {
+        self.todayReviewWordList.remove(at: 0)
+        if item.todayReviewCount != 3{
+            self.todayReviewWordList.append(item)
+        }
+        self.showItems(list:self.todayReviewWordList)
+    }
+    
+    func showItems(list:[LearningWordItem]) {
+        var tmp:[String] = []
+        var tmp2:[Int16] = []
+        for item in list {
+            tmp.append(item.wordContent ?? "null")
+            tmp2.append(item.todayReviewCount)
+        }
+        
+        print(tmp)
+        print(tmp2)
+    }
+    
     
 }

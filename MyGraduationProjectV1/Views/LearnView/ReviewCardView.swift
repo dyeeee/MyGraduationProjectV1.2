@@ -14,32 +14,32 @@ struct ReviewCardView: View {
     @ObservedObject var learnWordViewModel: LearnWordViewModel
     @ObservedObject var wordListViewModel:WordListViewModel
     
-    
-    @State var showThisCard:Bool = true
     @State var afterUnknown:Bool = false
     
-    @State var todayReviewCount = 0
-    //var removal: (() -> Void)? = nil
     
     
     var body: some View {
-        if showThisCard {
+//        if showThisCard {
             ZStack(alignment:.center) {
                 RoundedRectangle(cornerRadius: 25, style: .continuous)
-                    .fill(Color.white)
-                
+                    .fill(afterUnknown ? Color(.systemGray6) : Color.white)
+                    
                 
                 VStack {
-                    todayReviewCountView(reviewCount: self.$todayReviewCount)
-                    
-                    
-                    
+                    HStack {
+                        Spacer()
+                        todayReviewCountView(reviewCount: self.learningWordItem.todayReviewCount)
+                            .padding(.top,15)
+                        Spacer()
+                    }
+
                     if afterUnknown {
                         WordDetailView(wordItem: self.learningWordItem.sourceWord ?? WordItem(), wordListViewModel: self.wordListViewModel)
-                            .frame(width: UIScreen.main.bounds.width - 20, alignment: .center)
+                            //.frame(width: UIScreen.main.bounds.width - 20, alignment: .center)
                     }
                     else{
                         VStack {
+//                            Text("\(self.learningWordItem.todayReviewCount)")
                             Text(self.learningWordItem.wordContent ?? "noContent")
                                 .font(.largeTitle)
                                 .fontWeight(.bold)
@@ -52,9 +52,12 @@ struct ReviewCardView: View {
                                 .font(.largeTitle)
                                 .fontWeight(.bold)
                         )
-                        .padding([.top],20)
+                        .padding([.top],10)
                         
                         WordPhoneticView(phonetic_EN: self.learningWordItem.sourceWord?.phonetic_EN ?? "no phonetic_EN", phonetic_US: self.learningWordItem.sourceWord?.phonetic_US ?? "no phonetic_US",fontSize: 20)
+                            .padding(.top, -5)
+                        
+                        Divider()
                         
                         VStack(alignment:.leading){
                             Text("例句")
@@ -66,11 +69,14 @@ struct ReviewCardView: View {
                     }
                     
                     
-                    Spacer()
                     
-                    VStack {
-                        
-                        ZStack {
+                    Spacer()
+                    Divider()
+                    // 底部按钮
+                    HStack {
+                        Spacer()
+//                        ZStack {
+                            if(!afterUnknown){
                             HStack{
                                 Button(action: {
                                     self.afterUnknown = true
@@ -87,7 +93,10 @@ struct ReviewCardView: View {
                                     }
                                 })
                                 
-                                Button(action: {}, label: {
+                                Button(action: {
+                                    self.learnWordViewModel.nextCard(item: self.learningWordItem)
+                                    
+                                }, label: {
                                     ZStack {
                                         RoundedRectangle(cornerRadius: 5, style: .continuous)
                                             .frame(width: UIScreen.main.bounds.width*0.25, height: 40, alignment: .center)
@@ -100,11 +109,8 @@ struct ReviewCardView: View {
                                 })
                                 
                                 Button(action: {
-                                    if self.todayReviewCount == 3 {
-                                        //self.showThisCard = false
-                                    }else{
-                                        self.todayReviewCount = self.todayReviewCount + 1
-                                    }
+                                    self.learningWordItem.todayReviewCount = self.learningWordItem.todayReviewCount + 1
+                                    self.learnWordViewModel.nextCard(item: self.learningWordItem)
                                 }, label: {
                                     ZStack {
                                         RoundedRectangle(cornerRadius: 5, style: .continuous)
@@ -119,38 +125,51 @@ struct ReviewCardView: View {
                                         } .foregroundColor(Color(.systemGreen))
                                     }
                                 })
-                            }.frame(width: UIScreen.main.bounds.width, height: 50, alignment: .center)
-                            
-                            if(afterUnknown){
-                                Button(action: {
-                                    self.showThisCard = false
-                                }, label: {
-                                    ZStack {
-                                        RoundedRectangle(cornerRadius: 5, style: .continuous)
-                                            .frame(width: UIScreen.main.bounds.width*0.75, height: 40, alignment: .center)
-                                            .foregroundColor(Color(red: 240/255, green: 240/255, blue: 245/255))
-                                        HStack {
-                                            Image(systemName: "checkmark.circle.fill")
-                                            
-                                            Text("记住了").font(.custom("FZDIHT_JW--GB1-0", size: 18,relativeTo: .title))
-                                        }.foregroundColor(Color(.systemGreen))
-                                    }
-                                })
                             }
-                        }
-                    }.padding(.bottom,15)
+                            }
+                            if(afterUnknown){
+                                HStack {
+                                    //Spacer()
+                                    Button(action: {
+                                        self.learnWordViewModel.nextCard(item: self.learningWordItem)
+                                        self.afterUnknown = false
+                                    }, label: {
+                                        ZStack {
+                                            RoundedRectangle(cornerRadius: 5, style: .continuous)
+                                                .frame(width: UIScreen.main.bounds.width*0.75, height: 40, alignment: .center)
+                                                .foregroundColor(Color.white)
+                                            HStack {
+                                                Image(systemName: "checkmark.circle.fill")
+                                                Text("记住了").font(.custom("FZDIHT_JW--GB1-0", size: 18,relativeTo: .title))
+                                            }.foregroundColor(Color(.systemGreen))
+                                        }
+                                })
+                                    //Spacer()
+                                }
+                            }
+//                        }
+                        Spacer()
+                    }
+                    .padding(10)
+                    .padding(.bottom,5)
+                    .background(afterUnknown ? Color(.systemGray6) : Color.white)
+                    .clipShape(RoundedRectangle(cornerRadius: 25, style: .continuous))
+                    
                     //                    }
-                }.padding(.top,30)
+                }//.padding(.top,0)
+                
                 
             }
-        }
+            .frame(width: UIScreen.main.bounds.width - 20, alignment: .center)
+            //.padding(.bottom, 15)
+
         
     }
 }
 
 
 struct todayReviewCountView: View {
-    @Binding var reviewCount:Int
+    var reviewCount:Int16
     
     var body: some View {
         ZStack{
@@ -161,14 +180,15 @@ struct todayReviewCountView: View {
             
             
             HStack(spacing:3) {
-                ForEach(0..<3,id:\.self){
+                ForEach(0..<2,id:\.self){
                     num in
                     RoundedRectangle(cornerRadius: 5.0, style: .continuous)
                         .fill(num < reviewCount ? Color(.systemGreen) : Color(.systemGray3))
-                        .frame(width: 25, height: 10, alignment: .center)
+                        .frame(width: 35, height: 10, alignment: .center)
                 }
                 
             }
+            //Text("\(reviewCount)")
             
         
         }
@@ -201,12 +221,41 @@ struct ReviewCardView_Previews: PreviewProvider {
         learnWord.sourceWord = wordItem
         
         return
-            ReviewCardView(learningWordItem: learnWord, learnWordViewModel: LearnWordViewModel(), wordListViewModel: WordListViewModel())
-            .frame(width: UIScreen.main.bounds.width - 20, alignment: .center)
-            .overlay(
-                RoundedRectangle(cornerRadius: 25.0, style: .continuous)
-                    .stroke(Color.black.opacity(0.2), lineWidth: 1.0))
-            .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
-            .navigationBarTitleDisplayMode(.inline)
+            VStack {
+                VStack{
+                    HStack{
+                        Button(action: {
+                            
+                        }, label: {
+                            Text("Back")
+                        })
+                        Rectangle()
+                            .frame(width: 200, height: 20, alignment: .center)
+                            .foregroundColor(Color(.systemTeal))
+                        
+                        Button(action: {
+                            
+                        }, label: {
+                            Text("get")
+                        })
+                    }
+                }
+                
+                ZStack {
+                    ReviewCardView(learningWordItem: learnWord, learnWordViewModel: LearnWordViewModel(), wordListViewModel: WordListViewModel(),afterUnknown: false)
+                    //.frame(width: UIScreen.main.bounds.width - 20, alignment: .center)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 25.0, style: .continuous)
+                            .stroke(Color.black.opacity(0.2), lineWidth: 1.0)
+                            )
+                    .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+                    //.navigationBarTitleDisplayMode(.inline)
+                        //.ignoresSafeArea(edges: .bottom)
+                        
+                }
+                
+
+                
+            }
     }
 }

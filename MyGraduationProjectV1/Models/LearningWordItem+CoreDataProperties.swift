@@ -15,7 +15,7 @@ extension LearningWordItem {
     @nonobjc public class func fetchRequest() -> NSFetchRequest<LearningWordItem> {
         return NSFetchRequest<LearningWordItem>(entityName: "LearningWordItem")
     }
-
+    @NSManaged public var todayReviewCount: Int16
     @NSManaged public var reviewTimes: Int16
     @NSManaged public var nextReviewDateString: String?
     @NSManaged public var wordContent: String?

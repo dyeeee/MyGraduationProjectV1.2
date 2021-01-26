@@ -48,6 +48,8 @@
 		D0AD9EAA2598B2FB00148404 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0AD9EA92598B2FB00148404 /* Persistence.swift */; };
 		D0AD9EAD2598B2FB00148404 /* MyGraduationProjectV1.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D0AD9EAB2598B2FB00148404 /* MyGraduationProjectV1.xcdatamodeld */; };
 		D0AD9EB72598B35800148404 /* HomeTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0AD9EB62598B35800148404 /* HomeTabView.swift */; };
+		D0B072D025BFAACF009CDB05 /* infiniteLoopTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0B072CF25BFAACF009CDB05 /* infiniteLoopTest.swift */; };
+		D0B072D325C04A39009CDB05 /* LearnCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0B072D225C04A39009CDB05 /* LearnCardView.swift */; };
 		D0B0A24125B80F4400225C28 /* DayContentItem+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0B0A23D25B80F4400225C28 /* DayContentItem+CoreDataClass.swift */; };
 		D0B0A24225B80F4400225C28 /* DayContentItem+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0B0A23E25B80F4400225C28 /* DayContentItem+CoreDataProperties.swift */; };
 		D0B0A24925B80FC700225C28 /* Day.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0B0A24625B80FC700225C28 /* Day.swift */; };
@@ -116,6 +118,8 @@
 		D0AD9EAC2598B2FB00148404 /* MyGraduationProjectV1.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MyGraduationProjectV1.xcdatamodel; sourceTree = "<group>"; };
 		D0AD9EAE2598B2FB00148404 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D0AD9EB62598B35800148404 /* HomeTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTabView.swift; sourceTree = "<group>"; };
+		D0B072CF25BFAACF009CDB05 /* infiniteLoopTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = infiniteLoopTest.swift; sourceTree = "<group>"; };
+		D0B072D225C04A39009CDB05 /* LearnCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LearnCardView.swift; sourceTree = "<group>"; };
 		D0B0A23D25B80F4400225C28 /* DayContentItem+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DayContentItem+CoreDataClass.swift"; sourceTree = "<group>"; };
 		D0B0A23E25B80F4400225C28 /* DayContentItem+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DayContentItem+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		D0B0A24625B80FC700225C28 /* Day.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Day.swift; sourceTree = "<group>"; };
@@ -156,6 +160,7 @@
 			children = (
 				D015860025BE995600FD71BC /* LearningView.swift */,
 				D015860425BE99A400FD71BC /* ReviewCardView.swift */,
+				D0B072D225C04A39009CDB05 /* LearnCardView.swift */,
 				D0B0A29925B86A8D00225C28 /* LearningWordListVIew.swift */,
 			);
 			path = LearnView;
@@ -222,6 +227,7 @@
 				D09CCFBA25B0010200A0F5B7 /* ScrollToTest.swift */,
 				D09CCFBD25B00AA500A0F5B7 /* GestureTest.swift */,
 				D0FC4F5325B07C090005ACB1 /* LocationTest.swift */,
+				D0B072CF25BFAACF009CDB05 /* infiniteLoopTest.swift */,
 			);
 			path = TestFiles;
 			sourceTree = "<group>";
@@ -411,6 +417,7 @@
 				D09CCFA125AEC5BD00A0F5B7 /* ShowAllWordsView.swift in Sources */,
 				D0AD9EAD2598B2FB00148404 /* MyGraduationProjectV1.xcdatamodeld in Sources */,
 				D0B0A26625B8100000225C28 /* DayContentViewModel.swift in Sources */,
+				D0B072D325C04A39009CDB05 /* LearnCardView.swift in Sources */,
 				D0B0A26125B80FEC00225C28 /* GridStack.swift in Sources */,
 				D0B0A2A125B8753E00225C28 /* WordItem+CoreDataClass.swift in Sources */,
 				D0B0A2A225B8753E00225C28 /* WordItem+CoreDataProperties.swift in Sources */,
@@ -460,6 +467,7 @@
 				D0B0A26325B80FEC00225C28 /* ScrollViewTest.swift in Sources */,
 				D0B0A24B25B80FC700225C28 /* Colors.swift in Sources */,
 				D0B0A25825B80FE400225C28 /* DayCellView.swift in Sources */,
+				D0B072D025BFAACF009CDB05 /* infiniteLoopTest.swift in Sources */,
 				D0FC4F5425B07C090005ACB1 /* LocationTest.swift in Sources */,
 				D090AE9D25AC2D2C00663FA1 /* WordTranslationView.swift in Sources */,
 				D090AE9A25AC00F900663FA1 /* WordPhoneticView.swift in Sources */,

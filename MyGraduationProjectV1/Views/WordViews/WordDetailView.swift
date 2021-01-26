@@ -63,12 +63,13 @@ struct WordDetailView: View {
                                 .font(.headline)
                                 .foregroundColor(wordItem.starLevel>0 ? Color("BookMarkColor"):.gray)
                         }).buttonStyle(PlainButtonStyle())
+                        .padding(-5)
                         
                         Spacer()
                         //Text("StarLevel "+String(wordItem.starLevel))
                         //                        StarLevelView(starLevel:Int(wordItem.starLevel))
                         if(wordItem.starLevel>0) {
-                            HStack(spacing:-2) {
+                            HStack(spacing:-2.5) {
                                 ForEach(1..<5 + 1) {
                                     number in
                                     Image(systemName: "star.fill")
@@ -81,7 +82,7 @@ struct WordDetailView: View {
                                         }
                                     
                                 }
-                            }
+                            }.padding(-5)
                         }
                         
                         

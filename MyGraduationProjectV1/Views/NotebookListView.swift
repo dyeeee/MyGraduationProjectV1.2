@@ -231,6 +231,7 @@ struct NotebookListView: View {
                 .navigationTitle("Notebook")
                 .background(Color(.systemGray6))
                 .navigationBarTitleDisplayMode(.inline)
+                .showTabBar()
                 .toolbar {
                     ToolbarItem(placement: .navigationBarTrailing) { // <3>
                         Button {

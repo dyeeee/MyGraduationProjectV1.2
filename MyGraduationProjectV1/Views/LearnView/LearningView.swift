@@ -16,6 +16,8 @@ struct LearningView: View {
     
     var body: some View {
         VStack {
+            
+            //今日复习进度条
             VStack{
                 HStack{
                     Button(action: {
@@ -28,29 +30,56 @@ struct LearningView: View {
                         .foregroundColor(Color(.systemTeal))
                     
                     Button(action: {
-                        self.learnWordViewModel.getTodayNewWordItems(num: 30)
+                        self.learnWordViewModel.getTodayReviewWordItems()
                     }, label: {
                         Text("get")
                     })
                 }
             }
+            //今日复习进度条
             
+            //新词+学习卡片
             ZStack {
-                ForEach(self.learnWordViewModel.todayNewWordList, id: \.self) {
+                ZStack {
+                    RoundedRectangle(cornerRadius: 25, style: .continuous)
+                        .fill(Color(.systemGray6))
+                        .frame(width: UIScreen.main.bounds.width - 20, alignment: .center)
+                    Text("完成今日学习")
+                }
+                
+                //复习的单词
+                ForEach(self.learnWordViewModel.todayReviewWordList.reversed(), id: \.self) {
                     wordItem in
                     ReviewCardView(learningWordItem: wordItem, learnWordViewModel: self.learnWordViewModel, wordListViewModel: self.wordListViewModel)
-                        
-                    
+                }
+                
+                //新学的单词
+                ForEach(self.learnWordViewModel.todayNewWordList.reversed(), id: \.self) {
+                    wordItem in
+                    ReviewCardView(learningWordItem: wordItem, learnWordViewModel: self.learnWordViewModel, wordListViewModel: self.wordListViewModel)
                 }
             }
-            .frame(width: UIScreen.main.bounds.width - 30, alignment: .center)
+            //.frame(width: UIScreen.main.bounds.width - 20, alignment: .center)
             .overlay(
                 RoundedRectangle(cornerRadius: 25.0, style: .continuous)
                     .stroke(Color.black.opacity(0.2), lineWidth: 1.0)
-        )
+                )
+            
+            //底部
+            VStack{
+                HStack{
+                   Text("")
+                }
+            }.padding([.top,.bottom],10)
+            //底部
         }
+        .background(Color(.systemGray6)
+                        .frame(width: UIScreen.main.bounds.width)
+                        .edgesIgnoringSafeArea(.all))
         .navigationBarHidden(true)
         .hiddenTabBar()
+        .ignoresSafeArea(edges:.bottom)
+        
     }
 }
 
