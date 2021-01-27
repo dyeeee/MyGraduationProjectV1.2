@@ -10,11 +10,12 @@ import SwiftUI
 struct LearnStartView: View {
     @ObservedObject var wordListViewModel: WordListViewModel = WordListViewModel()
     @ObservedObject var learnWordViewModel: LearnWordViewModel = LearnWordViewModel()
-    
+    @AppStorage("LearnDayCount") var learnDayCount:Int = 1
     
     var body: some View {
         NavigationView {
             VStack(spacing:20) {
+                Text("今天是此单词书学习的第\(learnDayCount)天")
                 NavigationLink(
                     destination: LearningWordListVIew(),
                     label: {
@@ -22,7 +23,12 @@ struct LearnStartView: View {
                     })
                 
                 NavigationLink(
-                    destination: LearningView(),
+                    destination: LearningView()
+//                        .navigationBarHidden(true)
+//                        .onAppear(perform: {
+//                        self.learnWordViewModel.getTodayList(learnDayCount: learnDayCount)
+//                    })
+                    ,
                     label: {
                         Text("开始学习")
                     })

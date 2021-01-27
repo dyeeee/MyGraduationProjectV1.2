@@ -12,6 +12,8 @@ struct LearnCardView: View {
     @ObservedObject var learnWordViewModel: LearnWordViewModel
     @ObservedObject var wordListViewModel:WordListViewModel
     
+    @Binding var todayNewWord:Int
+    
     var body: some View {
         ZStack(alignment:.center) {
             RoundedRectangle(cornerRadius: 25, style: .continuous)
@@ -50,16 +52,22 @@ struct LearnCardView: View {
                     WordPhoneticView(phonetic_EN: self.learningWordItem.sourceWord?.phonetic_EN ?? "no phonetic_EN", phonetic_US: self.learningWordItem.sourceWord?.phonetic_US ?? "no phonetic_US",fontSize: 18)
                         .padding(.top, -5)
                 Divider()
-                WordTranslationView(wordTranslastion: self.learningWordItem.sourceWord?.translation ?? "no Trans", wordDefinition: self.learningWordItem.sourceWord?.definition ?? "no Def")
-                Divider()
+                VStack(alignment:.leading) {
+                    WordTranslationView(wordTranslastion: self.learningWordItem.sourceWord?.translation ?? "no Trans", wordDefinition: self.learningWordItem.sourceWord?.definition ?? "no Def")
+                    
+                    Divider()
+                    
                     VStack(alignment:.leading){
                         Text("例句")
                             .font(.callout)
                             .foregroundColor(Color("WordSentencesColor"))
                         ScrollView {
-                            WordExampleSentencesView(wordContent: self.learningWordItem.wordContent!, wordExampleSentences: self.learningWordItem.sourceWord?.exampleSentences ?? "noEXP",maxLine:2,showCH:true)
+                            WordExampleSentencesView(wordContent: self.learningWordItem.wordContent!, wordExampleSentences: self.learningWordItem.sourceWord?.exampleSentences ?? "noEXP",maxLine:1,showCH:true)
                         }
-                    }.padding([.leading,.trailing],30)
+                    }
+                }.padding([.leading,.trailing],20)
+                
+                    
                 
                 
                 Spacer()
@@ -71,7 +79,8 @@ struct LearnCardView: View {
                             HStack {
                                 //Spacer()
                                 Button(action: {
-                                    self.learnWordViewModel.nextCard(item: self.learningWordItem)
+                                    self.learnWordViewModel.nextCard_Learn(item: self.learningWordItem)
+                                    self.todayNewWord = self.todayNewWord + 1
                                 }, label: {
                                     ZStack {
                                         RoundedRectangle(cornerRadius: 5, style: .continuous)
@@ -147,7 +156,7 @@ struct LearnCardView_Previews: PreviewProvider {
                 }
                 
                 ZStack {
-                    LearnCardView(learningWordItem: learnWord, learnWordViewModel: LearnWordViewModel(), wordListViewModel: WordListViewModel())
+                    LearnCardView(learningWordItem: learnWord, learnWordViewModel: LearnWordViewModel(), wordListViewModel: WordListViewModel(), todayNewWord: .constant(0))
                     //.frame(width: UIScreen.main.bounds.width - 20, alignment: .center)
                     .overlay(
                         RoundedRectangle(cornerRadius: 25.0, style: .continuous)

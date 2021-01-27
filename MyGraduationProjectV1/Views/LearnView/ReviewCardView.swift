@@ -16,6 +16,7 @@ struct ReviewCardView: View {
     
     @State var afterUnknown:Bool = false
     
+    @Binding var todayReviewCount:Int
     
     
     var body: some View {
@@ -94,7 +95,7 @@ struct ReviewCardView: View {
                                 })
                                 
                                 Button(action: {
-                                    self.learnWordViewModel.nextCard(item: self.learningWordItem)
+                                    self.learnWordViewModel.nextCard_Review(item: self.learningWordItem)
                                     
                                 }, label: {
                                     ZStack {
@@ -110,7 +111,10 @@ struct ReviewCardView: View {
                                 
                                 Button(action: {
                                     self.learningWordItem.todayReviewCount = self.learningWordItem.todayReviewCount + 1
-                                    self.learnWordViewModel.nextCard(item: self.learningWordItem)
+                                    self.learnWordViewModel.nextCard_Review(item: self.learningWordItem)
+                                    if self.learningWordItem.todayReviewCount == 2{
+                                        self.todayReviewCount =  self.todayReviewCount + 1
+                                    }
                                 }, label: {
                                     ZStack {
                                         RoundedRectangle(cornerRadius: 5, style: .continuous)
@@ -131,7 +135,7 @@ struct ReviewCardView: View {
                                 HStack {
                                     //Spacer()
                                     Button(action: {
-                                        self.learnWordViewModel.nextCard(item: self.learningWordItem)
+                                        self.learnWordViewModel.nextCard_Review(item: self.learningWordItem)
                                         self.afterUnknown = false
                                     }, label: {
                                         ZStack {
@@ -242,7 +246,7 @@ struct ReviewCardView_Previews: PreviewProvider {
                 }
                 
                 ZStack {
-                    ReviewCardView(learningWordItem: learnWord, learnWordViewModel: LearnWordViewModel(), wordListViewModel: WordListViewModel(),afterUnknown: false)
+                    ReviewCardView(learningWordItem: learnWord, learnWordViewModel: LearnWordViewModel(), wordListViewModel: WordListViewModel(),afterUnknown: false, todayReviewCount: .constant(0))
                     //.frame(width: UIScreen.main.bounds.width - 20, alignment: .center)
                     .overlay(
                         RoundedRectangle(cornerRadius: 25.0, style: .continuous)

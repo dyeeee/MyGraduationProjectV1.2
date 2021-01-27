@@ -18,6 +18,10 @@ class LearnWordViewModel: ObservableObject{
     @Published var todayNewWordList:[LearningWordItem] = []
     @Published var todayReviewWordList:[LearningWordItem] = []
     
+    var todayAllCount:Int = 1
+    var todayNewCount:Int = 0
+    var todayReviewCount:Int = 0
+    
     init() {
         getAllItems()
         getKnownWordItems()
@@ -25,7 +29,28 @@ class LearnWordViewModel: ObservableObject{
         getUnlearnedWordItems()
     }
     
-    func getTodayNewWordItems(num:Int = 5) {
+    func getTodayList(newWordNum:Int = 6,learnDayCount:Int) {
+        getTodayNewWordItems(num:newWordNum,learnDayCount:learnDayCount)
+        self.todayNewCount = todayNewWordList.count
+        
+        
+        //getTodayReviewWordItems(learnDayCount: learnDayCount)
+        //仅获取一个数量，真正把数据加载到视图中再nextCard_Learn中执行
+        let fetchRequest: NSFetchRequest<LearningWordItem> = LearningWordItem.fetchRequest()
+        let pre =  NSPredicate(format: "nextReviewDay == %@", "\(learnDayCount)") // pre会改为下次复习时间为今天的单词
+        fetchRequest.predicate = pre
+        let viewContext = PersistenceController.shared.container.viewContext
+        do {
+            self.todayReviewCount = try viewContext.fetch(fetchRequest).count
+        } catch {
+            NSLog("Error fetching tasks: \(error)")
+        }
+        
+        self.todayAllCount = self.todayNewCount + self.todayReviewCount
+        print("总量：\(todayAllCount)个，新词：\(todayNewCount)个，复习：\(todayReviewCount)个")
+    }
+    
+    func getTodayNewWordItems(num:Int = 6,learnDayCount:Int) {
         let fetchRequest: NSFetchRequest<LearningWordItem> = LearningWordItem.fetchRequest()
         let sort = NSSortDescriptor(key: "wordContent", ascending: true,selector: #selector(NSString.caseInsensitiveCompare(_:)))
         let pre =  NSPredicate(format: "status == %@", "unlearned")
@@ -38,20 +63,22 @@ class LearnWordViewModel: ObservableObject{
             //获取所有的Item
             todayNewWordList = try viewContext.fetch(fetchRequest).reversed()
             for item in todayNewWordList{
-                print(item.wordContent ?? "no content")
+                item.nextReviewDay = Int16(learnDayCount) //补充把下次复习时间添加为今天
             }
-            //补充把下次复习时间添加为今天
+            saveToPersistentStore()
             //先执行这个函数获取要新学的，再执行要复习的
+            print("新词加载完成,\(todayNewCount)个")
+            showItems(list: todayNewWordList)
         } catch {
             NSLog("Error fetching tasks: \(error)")
         }
     }
     
-    func getTodayReviewWordItems() {
+    func getTodayReviewWordItems(learnDayCount:Int) {
         let fetchRequest: NSFetchRequest<LearningWordItem> = LearningWordItem.fetchRequest()
         let sort = NSSortDescriptor(key: "wordContent", ascending: true,selector: #selector(NSString.caseInsensitiveCompare(_:)))
-        let pre =  NSPredicate(format: "status == %@", "unlearned") // pre会改为下次复习时间为今天的单词
-        fetchRequest.fetchLimit = 5
+        let pre =  NSPredicate(format: "nextReviewDay == %@", "\(learnDayCount)") // pre会改为下次复习时间为今天的单词
+        fetchRequest.fetchLimit = 6
         fetchRequest.predicate = pre
         fetchRequest.sortDescriptors = [sort]
         
@@ -62,7 +89,8 @@ class LearnWordViewModel: ObservableObject{
             for item in todayReviewWordList {
                 item.todayReviewCount = 0
             }
-            showItems(list: todayReviewWordList)
+            print("复习的词加载完成")
+            //showItems(list: todayReviewWordList)
         } catch {
             NSLog("Error fetching tasks: \(error)")
         }
@@ -231,12 +259,26 @@ class LearnWordViewModel: ObservableObject{
         }
     }
     
-    func nextCard(item:LearningWordItem) {
+    func nextCard_Learn(item:LearningWordItem) {
+        self.todayNewWordList.remove(at: 0)
+        print("新词\(item.wordContent ?? "noContent")学习完成")
+        self.showItems(list:self.todayNewWordList)
+        //最后再来加载页面，优化性能表现。
+        //复习的词也可以分批加载处理，后续再优化（先获取完整列表，再分批载入视图中）
+        if todayNewWordList.count == 2 {
+            DispatchQueue.main.asyncAfter(deadline:DispatchTime.now() + 0.1) {
+                self.getTodayReviewWordItems(learnDayCount: 1)
+            }
+        }
+    }
+    
+    func nextCard_Review(item:LearningWordItem) {
         self.todayReviewWordList.remove(at: 0)
-        if item.todayReviewCount != 3{
+        if item.todayReviewCount != 2{
             self.todayReviewWordList.append(item)
         }
-        self.showItems(list:self.todayReviewWordList)
+        print("\(item.wordContent ?? "noContent")复习")
+        //self.showItems(list:self.todayReviewWordList)
     }
     
     func showItems(list:[LearningWordItem]) {
@@ -244,7 +286,7 @@ class LearnWordViewModel: ObservableObject{
         var tmp2:[Int16] = []
         for item in list {
             tmp.append(item.wordContent ?? "null")
-            tmp2.append(item.todayReviewCount)
+            tmp2.append(item.nextReviewDay)
         }
         
         print(tmp)
