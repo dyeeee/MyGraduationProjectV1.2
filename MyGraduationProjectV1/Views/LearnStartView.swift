@@ -23,12 +23,7 @@ struct LearnStartView: View {
                     })
                 
                 NavigationLink(
-                    destination: LearningView()
-//                        .navigationBarHidden(true)
-//                        .onAppear(perform: {
-//                        self.learnWordViewModel.getTodayList(learnDayCount: learnDayCount)
-//                    })
-                    ,
+                    destination: LearningView(),
                     label: {
                         Text("开始学习")
                     })

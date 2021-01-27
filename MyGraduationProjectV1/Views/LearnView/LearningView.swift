@@ -12,6 +12,8 @@ struct LearningView: View {
     @ObservedObject var learnWordViewModel: LearnWordViewModel = LearnWordViewModel()
     @Environment(\.presentationMode) var presentationMode
     
+    @AppStorage("LearnDayCount") var learnDayCount:Int = 1
+    
     @State var todayAllCount:Int = 36
     @State var todayNewCount:Int = 0
     @State var todayReviewCount:Int = 0
@@ -117,10 +119,8 @@ struct LearningView: View {
         .hiddenTabBar()
         .ignoresSafeArea(edges:.bottom)
         .onAppear(perform: {
-            self.learnWordViewModel.getTodayList(learnDayCount: 1)
-//            todayAllCount = self.learnWordViewModel.todayAllCount
-//            todayNewCount = self.learnWordViewModel.todayNewCount
-//            todayReviewCount = self.learnWordViewModel.todayReviewCount
+            //获取今天的词
+            self.learnWordViewModel.getTodayList(learnDayCount: learnDayCount)
         })
     }
 }

@@ -11,6 +11,12 @@ import SwiftUI
 struct MyGraduationProjectV1App: App {
     let persistenceController = PersistenceController.shared
 
+    init() {
+        //测试时注释本行UserDefaults.standard.set(Date().dateToString(format: "yyyyMMdd"), forKey: "LastLogIn")
+        setLearnDay()
+    }
+    
+    
     var body: some Scene {
         WindowGroup {
             HomeTabView()

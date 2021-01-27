@@ -72,6 +72,7 @@
 		D0B0A2A125B8753E00225C28 /* WordItem+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0B0A29D25B8753E00225C28 /* WordItem+CoreDataClass.swift */; };
 		D0B0A2A225B8753E00225C28 /* WordItem+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0B0A29E25B8753E00225C28 /* WordItem+CoreDataProperties.swift */; };
 		D0B543A225C14AF000E39B49 /* TodayProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0B543A125C14AF000E39B49 /* TodayProgressView.swift */; };
+		D0B543A525C19BFC00E39B49 /* UserDefaultTools.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0B543A425C19BFC00E39B49 /* UserDefaultTools.swift */; };
 		D0FC4F5425B07C090005ACB1 /* LocationTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0FC4F5325B07C090005ACB1 /* LocationTest.swift */; };
 /* End PBXBuildFile section */
 
@@ -143,6 +144,7 @@
 		D0B0A29D25B8753E00225C28 /* WordItem+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WordItem+CoreDataClass.swift"; sourceTree = "<group>"; };
 		D0B0A29E25B8753E00225C28 /* WordItem+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WordItem+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		D0B543A125C14AF000E39B49 /* TodayProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayProgressView.swift; sourceTree = "<group>"; };
+		D0B543A425C19BFC00E39B49 /* UserDefaultTools.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultTools.swift; sourceTree = "<group>"; };
 		D0FC4F5325B07C090005ACB1 /* LocationTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationTest.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -189,6 +191,7 @@
 				D0B0A25D25B80FEC00225C28 /* MonthCalUtility */,
 				D09B727925BAFFBE00CD85BF /* DealString.swift */,
 				D01585FC25BE799E00FD71BC /* HideTab.swift */,
+				D0B543A425C19BFC00E39B49 /* UserDefaultTools.swift */,
 			);
 			path = Tools;
 			sourceTree = "<group>";
@@ -459,6 +462,7 @@
 				D0B0A25A25B80FE400225C28 /* WeekdaysView.swift in Sources */,
 				D09CCFBE25B00AA500A0F5B7 /* GestureTest.swift in Sources */,
 				D09DE1D1259C84D4006DAB60 /* ProgressTestView.swift in Sources */,
+				D0B543A525C19BFC00E39B49 /* UserDefaultTools.swift in Sources */,
 				D0B0A28B25B8616100225C28 /* LearnWordViewModel.swift in Sources */,
 				D09CCF9525AE982900A0F5B7 /* NotebookListView.swift in Sources */,
 				D04B706425AAF668004B644D /* RegexTools.swift in Sources */,
