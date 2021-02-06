@@ -16,6 +16,7 @@ import MobileCoreServices
 struct WordDetailView: View {
     @ObservedObject var wordItem:WordItem
     @ObservedObject var wordListViewModel: WordListViewModel
+    
     @State var wordNote:String = ""
     
     @State var showNotePlaceholder = true
@@ -28,7 +29,7 @@ struct WordDetailView: View {
     
     var body: some View {
         ScrollViewReader { reader in
-            Form {
+            List {
                 VStack(alignment:.leading) {
                     HStack {
                         Menu{
@@ -62,12 +63,13 @@ struct WordDetailView: View {
                                 .font(.headline)
                                 .foregroundColor(wordItem.starLevel>0 ? Color("BookMarkColor"):.gray)
                         }).buttonStyle(PlainButtonStyle())
+                        .padding(-5)
                         
                         Spacer()
                         //Text("StarLevel "+String(wordItem.starLevel))
                         //                        StarLevelView(starLevel:Int(wordItem.starLevel))
                         if(wordItem.starLevel>0) {
-                            HStack(spacing:-2) {
+                            HStack(spacing:-2.5) {
                                 ForEach(1..<5 + 1) {
                                     number in
                                     Image(systemName: "star.fill")
@@ -80,7 +82,7 @@ struct WordDetailView: View {
                                         }
                                     
                                 }
-                            }
+                            }.padding(-5)
                         }
                         
                         
@@ -99,7 +101,7 @@ struct WordDetailView: View {
                     //                        .font(.subheadline)
                     //                        .foregroundColor(.black)
                     
-                    WordPhoneticView(phonetic_EN: wordItem.phonetic_EN!, phonetic_US: wordItem.phonetic_US!)
+                    WordPhoneticView(phonetic_EN: wordItem.phonetic_EN ?? "no phonetic_EN", phonetic_US: wordItem.phonetic_US ?? "no phonetic_US")
                     
                     WordTagsView(wordTags: wordItem.wordTags ?? "",bncLevel:Int(wordItem.bncLevel),frqLevel:Int(wordItem.frqLevel),oxfordLevel:Int(wordItem.oxfordLevel),collinsLevel:Int(wordItem.collinsLevel))
                     //                    }
@@ -115,7 +117,7 @@ struct WordDetailView: View {
                 Section(header: ListHeader(img: "lightbulb.fill", text: "释义", showContent: $showTrans))
                 {
                     if(showTrans) {
-                        WordTranslationView(wordTranslastion: wordItem.translation!, wordDefinition: wordItem.definition!)
+                        WordTranslationView(wordTranslastion: wordItem.translation ?? "no Trans", wordDefinition: wordItem.definition ?? "no Def")
                         
                         
                         //                    VStack(alignment: .leading, spacing: 10) {
@@ -248,6 +250,12 @@ struct WordDetailView: View {
                 }
                 
             }
+            .onAppear(perform: {
+                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.25) {
+                self.wordListViewModel.saveToPersistentStore()
+                self.wordListViewModel.getHistoryItems()
+                }
+            })
             .listStyle(InsetGroupedListStyle())
 //            .toolbar(content: {
 //                ToolbarItem(placement: .bottomBar) {
@@ -304,6 +312,7 @@ struct WordDetailView: View {
 //                }
 //            })
             .navigationTitle(wordItem.wordContent ?? "null")
+            .hiddenTabBar()
         }
        
     }

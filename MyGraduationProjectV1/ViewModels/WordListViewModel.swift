@@ -76,7 +76,6 @@ class WordListViewModel: ObservableObject{
         fetchRequest.predicate = pre
         //fetchRequest.sortDescriptors = [sort]
         let viewContext = PersistenceController.shared.container.viewContext
-            //获取所有的Item
         
         var list:[WordItem] = []
         
@@ -166,6 +165,27 @@ class WordListViewModel: ObservableObject{
         }
     }
     
+    func searchItemByID(id:Int32) -> WordItem {
+        let fetchRequest: NSFetchRequest<WordItem> = WordItem.fetchRequest()
+        //WordItem.fetchRequest() 就是 NSFetchRequest<WordItem>(entityName: "WordItem"）
+        let pre =  NSPredicate(format: "wordID == %@", "\(id)")
+        fetchRequest.predicate = pre
+        let viewContext = PersistenceController.shared.container.viewContext
+        
+        var testList:[WordItem] = []
+        
+        do {
+            testList = try viewContext.fetch(fetchRequest)
+            if testList.count > 0 {
+                return testList[0]  //id唯一
+            }
+        } catch {
+            NSLog("Error fetching tasks: \(error)")
+        }
+        //print(testList)
+        return WordItem(context: viewContext)
+    }
+    
     func createTestItem() {
         let container = PersistenceController.shared.container
         let viewContext = container.viewContext
@@ -190,6 +210,9 @@ class WordListViewModel: ObservableObject{
         container.performBackgroundTask() { (context) in
             for i in 1 ..< (csvRows.count - 1) {  //有标题就从1开始
                 let word = WordItem(context: context)
+                var id = csvRows[i][0]
+                id.removeFirst()
+                word.wordID =  Int32(id) ?? 0// 去除最开始的引号
                 word.wordContent = csvRows[i][1]
                 word.phonetic_EN = csvRows[i][2]
                 word.phonetic_US = csvRows[i][3]
@@ -234,6 +257,9 @@ class WordListViewModel: ObservableObject{
         container.performBackgroundTask() { (context) in
             for i in 1 ..< (csvRows.count - 1) {  //有标题就从1开始
                 let word = WordItem(context: context)
+                var id = csvRows[i][0]
+                id.removeFirst()
+                word.wordID =  Int32(id) ?? 0// 去除最开始的引号
                 word.wordContent = csvRows[i][1]
                 word.phonetic_EN = csvRows[i][2]
                 word.phonetic_US = csvRows[i][3]
@@ -303,7 +329,7 @@ class WordListViewModel: ObservableObject{
         let viewContext = PersistenceController.shared.container.viewContext
         do {
             try viewContext.save()
-            getAllItems()
+            //getAllItems()
             if listName == .item {
                 self.getAllItems()
             }else if listName == .notebook{

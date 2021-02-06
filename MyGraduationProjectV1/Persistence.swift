@@ -17,20 +17,6 @@ struct PersistenceController {
             let newItem = Item(context: viewContext)
             newItem.timestamp = Date()
             
-//            let wordItem = WordItem(context: viewContext)
-//            wordItem.starLevel = 3
-//            wordItem.wordContent = "alleviate"
-//            wordItem.phonetic_EN = "ә'li:vieit"
-//            wordItem.phonetic_US = "[ə'livɪ'et]"
-//            wordItem.definition = "v provide physical relief, as from pain\nv make easier"
-//            wordItem.translation = "vt. 减轻, 使缓和"
-//            wordItem.collinsLevel = 1
-//            wordItem.wordTags = "cet6 ky toefl ielts gre"
-//            wordItem.bncLevel = 7706
-//            wordItem.frqLevel = 55
-//            wordItem.wordExchanges = "d:alleviated/i:alleviating/3:alleviates/p:alleviated"
-//            wordItem.exampleSentences = "Excuse me what eyedrop can be treated or to what eyedrop can be treated or alleviate myopic eyedrop ah?<br>请问一下有没有什么眼药水可以治疗或缓解近视的眼药水啊？<br>And ease the tension in the form of many, why not bring serious harm to the body of a factor to alleviate it?"
-//            wordItem.wordNote = ""
         }
         do {
             try viewContext.save()

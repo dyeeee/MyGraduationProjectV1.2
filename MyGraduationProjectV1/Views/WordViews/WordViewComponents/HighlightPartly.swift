@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct HighlightPartlyView: View {
-    @State var fullString: String = "She was also taken aback by his intense jealousy and the imbalance between his tight penny-pinching and extravagant spending aback aback， aback."
+    @State var fullString: String = "She was also taken aback by his intense jealousy and the imbalance between his tight penny-pinching and extravagant spending aback aback， Aback."
     @State var wordContent:String = "aback"
     
     var body: some View{

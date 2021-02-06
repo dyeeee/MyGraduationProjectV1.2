@@ -9,6 +9,7 @@ import SwiftUI
 
 struct WordContentView: View {
     @State var wordContent:String = "allow"
+    @State var fontSize = 18
     
     var body: some View {
         VStack {

@@ -8,19 +8,22 @@
 import SwiftUI
 
 struct HomeTabView: View {
-    @State var selectedTab: TabSelection = .page4
+    @State var selectedTab: TabSelection = .page2
     @ObservedObject var wordListViewModel = WordListViewModel()
+    @ObservedObject var learnWordViewModel: LearnWordViewModel = LearnWordViewModel()
+    @ObservedObject var dayContentViewModel:DayContentViewModel = DayContentViewModel()
     
     var body: some View {
         TabView(selection: $selectedTab){
-            HomeView()
+            HomeView(dayContentViewModel: self.dayContentViewModel)
                 .tabItem {
                     Image(systemName: "chart.bar.xaxis")
                     Text("Progress")
                 }
                 .tag(TabSelection.page1)
             
-            Text("Learn").navigationTitle(Text("page2"))
+            LearnStartView()
+                .navigationTitle(Text("page2"))
                 .tabItem {
                     Image(systemName: "graduationcap.fill")
                     Text("Learn")
@@ -43,6 +46,7 @@ struct HomeTabView: View {
                 .tag(TabSelection.page4)
             
             ShowAllWordsView(wordListViewModel: wordListViewModel)
+            //LearningWordListVIew()
                 .tabItem {
                     Image(systemName: "gearshape.2.fill")
                     Text("Setting")

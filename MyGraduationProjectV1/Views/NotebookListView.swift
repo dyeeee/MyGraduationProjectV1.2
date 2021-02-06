@@ -21,6 +21,11 @@ struct NotebookListView: View {
     
     let alphaListSub = ["A","D","G","J","M","P","S","V","X","Z"]
     
+    let alphaListSub1 = ["A","B","C","D","E","F","G","H","I","J","K","L","M"]
+    let alphaListSub2 = ["N","O","P","Q","R","S","T","U","V","W","X","Y","Z"]
+    
+    //    @State var scrollToWord
+    
     
     var body: some View {
         NavigationView{
@@ -132,23 +137,47 @@ struct NotebookListView: View {
                         
                         VStack {
                             //定位到对应id的字母按钮
-                            HStack{
+                            HStack {
                                 Image(systemName: "scroll.fill")
-                                ForEach(self.alphaListSub,id:\.self){
-                                    char in
-                                    Button(action: {
-                                        withAnimation{
-                                            reader.scrollTo(char.uppercased())
+                                VStack(spacing:2) {
+                                    HStack(spacing:2.5){
+                                        
+                                            ForEach(self.alphaList,id:\.self){
+                                                char in
+                                                Button(action: {
+                                                    withAnimation{
+                                                        reader.scrollTo(char.uppercased())
+                                                    }
+                                                }, label: {
+                                                    FilterLabel(text:char)
+                                                })
+                                            
                                         }
-                                    }, label: {
-                                        FilterLabel(text:char)
-                                    })
+                                        
+                                        Spacer()
+                                    }
+//                                    HStack(spacing:5){
+//                                        
+//                                            ForEach(self.alphaListSub2,id:\.self){
+//                                                char in
+//                                                Button(action: {
+//                                                    withAnimation{
+//                                                        reader.scrollTo(char.uppercased())
+//                                                    }
+//                                                }, label: {
+//                                                    FilterLabel(text:char)
+//                                                })
+//                                            
+//                                        }
+//                                        
+//                                        Spacer()
+//                                    }
                                 }
-                                Spacer()
                             }
                             .padding(.leading,10)
                             .foregroundColor(Color("WordLevelsColor"))
                             .padding(.bottom,-5)
+                            .padding(.top,2)
                             //Text("test")
                             
                             
@@ -180,7 +209,9 @@ struct NotebookListView: View {
                                                 //.frame(height: 30)
                                                 .padding([.leading],-5)
                                             }
-                                        }.id((section[0].wordContent!.prefix(1).uppercased()))
+                                        }
+                                        //.id((section[0].wordContent!.uppercased()))
+                                        .id((section[0].wordContent!.prefix(1).uppercased()))
                                     }
                                 }
                             }
@@ -200,6 +231,7 @@ struct NotebookListView: View {
                 .navigationTitle("Notebook")
                 .background(Color(.systemGray6))
                 .navigationBarTitleDisplayMode(.inline)
+                .showTabBar()
                 .toolbar {
                     ToolbarItem(placement: .navigationBarTrailing) { // <3>
                         Button {
@@ -212,10 +244,10 @@ struct NotebookListView: View {
                 }
             }
         }
-//                .onAppear(perform: {
-//                        //self.wordListViewModel.getNotebookItems()
-//                        self.wordListViewModel.getGroupedItems()
-//                    })
+        //                .onAppear(perform: {
+        //                        //self.wordListViewModel.getNotebookItems()
+        //                        self.wordListViewModel.getGroupedItems()
+        //                    })
     }
     
     func dealTrans(_ rawTrans:String) -> String {
@@ -240,10 +272,10 @@ struct FilterLabel: View {
     var body: some View {
         VStack {
             Text("\(text)")
-                .fontWeight(.semibold)
+                .font(.caption)
+                //.fontWeight(.semibold)
         }
-        .frame(width:20,height: 18)
-        .font(.headline)
+        .frame(width:10,height: 18)
         .overlay(
             RoundedRectangle(cornerRadius: 2.0)
                 .stroke())

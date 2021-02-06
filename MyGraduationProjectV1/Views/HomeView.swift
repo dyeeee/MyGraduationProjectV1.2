@@ -9,9 +9,13 @@ import SwiftUI
 
 struct HomeView: View {
     @State var showHistoryCalendar = false
-    @ObservedObject var dayContentViewModel:DayContentViewModel = DayContentViewModel()
+    @ObservedObject var dayContentViewModel:DayContentViewModel// = DayContentViewModel()
     
     @State var isLoading:Bool = false
+    
+    @AppStorage("LearnDayCount") var learnDayCount:Int = 1
+    @AppStorage("LastLogIn") var lastLogIn:String = "test"
+    @AppStorage("IsLastLearnDone") var isLastLearnDone:Bool = false
     
     var body: some View {
         NavigationView {
@@ -48,6 +52,33 @@ struct HomeView: View {
                         .padding([.bottom], 10)
                         .background(RoundedRectangle(cornerRadius: 20.0, style: .continuous).foregroundColor(.white))
                         
+                        VStack {
+                            Text("学习天数\(learnDayCount)")
+                            Text("上次启动日期\(lastLogIn)")
+                            Text("学习是否完成\(isLastLearnDone.description)")
+                        }
+                        
+                        VStack{
+                            Button(action: {
+                                isLastLearnDone = true
+                                self.dayContentViewModel.createItem(dateString: Date().dateToString(format: "yyyyMMdd"))
+                            }, label: {
+                                Text("模拟完成今天学习")
+                            })
+                            
+                            Button(action: {
+                                lastLogIn = "20210120"
+                            }, label: {
+                                Text("手动设置上次启动日期")
+                            })
+                            
+                            Button(action: {
+                                learnDayCount = 1
+                            }, label: {
+                                Text("重置学习天数")
+                            })
+                        }
+                        
                         
                         Spacer()
                     }.padding([.leading,.trailing,.top],10)
@@ -79,7 +110,7 @@ struct HomeView: View {
 
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
-        HomeView()
+        HomeView(dayContentViewModel: DayContentViewModel())
     }
 }
 

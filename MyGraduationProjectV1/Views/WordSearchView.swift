@@ -23,6 +23,7 @@ struct WordSearchView: View {
                 }.listStyle(InsetGroupedListStyle())
             .navigationTitle("Word List")
             .navigationBarTitleDisplayMode(.inline)
+            .showTabBar()
             .toolbar { // <2>
                 ToolbarItem(placement: .navigationBarLeading) { // <3>
                     Button {
@@ -43,6 +44,11 @@ struct WordSearchView: View {
                             self.wordListViewModel.preloadFromCSV()
                         }) {
                             Label("Preload", systemImage: "text.badge.plus")
+                        }
+                        Button(action: {
+                            self.wordListViewModel.preloadFromBigCSV()
+                        }) {
+                            Label("Preload Big", systemImage: "text.badge.plus")
                         }
                     } label: {
                         Image(systemName: "ellipsis.circle")
